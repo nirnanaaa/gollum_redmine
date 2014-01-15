@@ -19,5 +19,5 @@ Redmine::Plugin.register :gollum do
 end
 
 GollumRails::Setup.build do |config|
-  config.repository = Setting["plugin_gollum"]["repository_location"]
+  config.repository = Setting["plugin_gollum"]["repository_location"] || Rails.root.join('wiki.git')
 end
