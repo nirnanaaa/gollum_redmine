@@ -1,4 +1,5 @@
 require_dependency 'gollum/my_plugin_hook'
+require_dependency 'gollum/gollum_init_hook'
 Redmine::Plugin.register :gollum do
   name 'Gollum integration plugin'
   author 'Florian Kasper'
@@ -22,7 +23,3 @@ Redmine::Plugin.register :gollum do
   
 end
 
-GollumRails::Setup.build do |config|
-  config.repository = '/srv/wiki.git'#Setting.plugin_gollum["repository_location"] 
-  
-end
