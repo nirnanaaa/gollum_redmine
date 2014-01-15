@@ -11,7 +11,7 @@ class ProjectDescriptionsController < ApplicationController
     if @prj
       current_user = User.current
       begin
-        @page = Page.create!(name: "/projects/#{@prj.name}",
+        @page = Page.create!(name: "#{Setting.plugin_gollum['project_prefix']}#{@prj.name}",
         content: params[:pg][:content],
         format: :markdown,
         commit: { name: "#{current_user.firstname} #{current_user.lastname}",
@@ -33,7 +33,7 @@ class ProjectDescriptionsController < ApplicationController
   def edit
     @prj = project.first
     if @prj
-      unless @page = Page.find("/projects/#{@prj.name}")
+      unless @page = Page.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
 
         redirect_to new_project_descriptions_path(@prj)
       end
