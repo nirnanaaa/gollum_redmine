@@ -2,7 +2,6 @@ class ProjectDescriptionsController < ApplicationController
   unloadable
 
   def new
-    raise project.to_yaml
     @prj = project.first
     @page = Page.new
   end
@@ -63,6 +62,6 @@ class ProjectDescriptionsController < ApplicationController
 
   
   def project
-    Project.where(name: params[:title])
+    Project.where(identifier: params[:title])
   end
 end
