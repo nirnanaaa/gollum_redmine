@@ -7,7 +7,7 @@ Redmine::Plugin.register :gollum do
   url 'http://example.com/path/to/plugin'
   author_url 'http://floriankasper.org'
   
-  menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
+  #menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
   
   GollumRails::Setup.build do |config|
 
