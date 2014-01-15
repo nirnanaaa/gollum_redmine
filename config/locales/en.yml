@@ -11,5 +11,6 @@ en:
   label_need_restart: "After making any changes to the repository path you need to restart or reload the redmine installation"
   label_default_page: "Default page"
   label_meetings: "Meetings"
+  label_project_prefix: "Folder, where Project descriptions are stored"
   
   # my_label: "My label"

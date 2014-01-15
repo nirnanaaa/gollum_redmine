@@ -7,7 +7,9 @@
 <p>
   <label><%= l(:label_default_page) %></label><%= text_field_tag 'settings[default_page]', @settings['default_page'] %>  
 </p>
-
+<p>
+  <label><%= l(:label_project_prefix) %></label><%= text_field_tag 'settings[project_prefix]', @settings['project_prefix'] %>  
+</p>
 <br />
 <b><%= l(:label_need_restart)%></b>
 
