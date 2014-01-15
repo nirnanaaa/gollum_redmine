@@ -1,5 +1,5 @@
 # English strings go here for Rails i18n
-en:
+de:
   label_menu_gollum: "Wiki"
   label_project_wiki: "Projektbeschreibung"
   label_new_project_descriptions: "Neue Projektbeschreibung"
