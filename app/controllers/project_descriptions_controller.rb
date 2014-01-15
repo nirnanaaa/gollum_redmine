@@ -2,6 +2,7 @@ class ProjectDescriptionsController < ApplicationController
   unloadable
 
   def new
+    raise project.to_yaml
     @prj = project.first
     @page = Page.new
   end

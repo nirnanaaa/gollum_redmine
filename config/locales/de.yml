@@ -10,4 +10,5 @@ en:
   label_repository_location: "Pfad zum GIT repository"
   label_need_restart: "Redmine muss nach einer Änderung am Repository Pfad neugestartet bzw. neu geladen werden."
   label_default_page: "Einstiegsseite"
+  label_meetings: "Besprechungen"
   # my_label: "My label"
