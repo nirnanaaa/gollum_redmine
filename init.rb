@@ -6,15 +6,18 @@ Redmine::Plugin.register :gollum do
   version '0.0.1'
   url 'http://example.com/path/to/plugin'
   author_url 'http://floriankasper.org'
-  
-  #menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
-  
-  GollumRails::Setup.build do |config|
-
-    config.repository = Rails.root.join('wiki.git')
-  end
+  menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
   
 
-  #settings :default => {'empty' => true}, :partial => 'settings/holidays_settings'
   
+
+  settings :default => {
+    'wiki_root' => Rails.root.join('wiki.git'),
+    'default_page' => 'Home'
+    }, :partial => 'settings/gollum_settings'
+  
+end
+
+GollumRails::Setup.build do |config|
+  config.repository = Setting["plugin_gollum"]["repository_location"]
 end

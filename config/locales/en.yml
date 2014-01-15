@@ -6,4 +6,8 @@ en:
   error_duplicate_page: "Sorry but this page does aleady exist! Please use the edit button"
   label_project_description_edit: "Edit project description"
   notice_page_updated: "Page was successfully updated"
+  label_gollum_settings: "Gollum"
+  label_repository_location: "Location of your GIT repository"
+  label_need_restart: "After making any changes to the repository path you need to restart or reload the redmine installation"
+  label_default_page: "Default page"
   # my_label: "My label"

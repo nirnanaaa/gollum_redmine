@@ -6,4 +6,8 @@ en:
   error_duplicate_page: "Entschuldigung aber diese Seite existiert bereits. Bitte benutze den Änderungsknopf"
   label_project_description_edit: "Projektbeschreibung editieren"
   notice_page_updated: "Seite wurde erfolgreich aktualisiert"
+  label_gollum_settings: "Gollum"
+  label_repository_location: "Pfad zum GIT repository"
+  label_need_restart: "Redmine muss nach einer Änderung am Repository Pfad neugestartet bzw. neu geladen werden."
+  label_default_page: "Einstiegsseite"
   # my_label: "My label"

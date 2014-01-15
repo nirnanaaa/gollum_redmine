@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
 
   def index
-    @page = Page.find("Home")
+    @page = Page.find(Setting["plugin_gollum"]["default_page"])
     render :show
   end
   

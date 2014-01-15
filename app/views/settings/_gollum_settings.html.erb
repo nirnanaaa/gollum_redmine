@@ -1,0 +1,14 @@
+<fieldset>
+<legend><%= l(:label_gollum_settings) %></legend>
+
+<p>
+  <label><%= l(:label_repository_location) %></label><%= text_field_tag 'settings[repository_location]', @settings['repository_location'] %>
+</p>
+<p>
+  <label><%= l(:label_default_page) %></label><%= text_field_tag 'settings[default_page]', @settings['default_page'] %>  
+</p>
+
+<br />
+<b><%= l(:label_need_restart)%></b>
+
+</fieldset>
