@@ -45,7 +45,7 @@ class ProjectDescriptionsController < ApplicationController
     @prj = project.first
     if @prj
       current_user = User.current
-      @page = Page.find("/projects/#{@prj.name}")
+      @page = Page.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
       
       @page.update_attributes(params[:pg][:content],nil,:markdown,{ 
         name: "#{current_user.firstname} #{current_user.lastname}",
