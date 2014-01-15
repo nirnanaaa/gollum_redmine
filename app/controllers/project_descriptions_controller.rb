@@ -19,7 +19,7 @@ class ProjectDescriptionsController < ApplicationController
                   message: "Created project description for project #{@prj.name}"
                  }
           )
-          flash[:notice] = l(:saved)
+          flash[:notice] = l(:notice_page_saved)
         redirect_to project_path(@prj)
           
       rescue Gollum::DuplicatePageError => e

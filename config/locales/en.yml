@@ -12,5 +12,5 @@ en:
   label_default_page: "Default page"
   label_meetings: "Meetings"
   label_project_prefix: "Folder, where Project descriptions are stored"
-  
+  notice_page_saved: "Saved successfully"
   # my_label: "My label"
