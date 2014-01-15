@@ -1,0 +1,2 @@
+module ProjectDescriptionsHelper
+end

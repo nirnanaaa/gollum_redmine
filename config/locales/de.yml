@@ -1,0 +1,9 @@
+# English strings go here for Rails i18n
+en:
+  label_menu_gollum: "Wiki"
+  label_project_wiki: "Projektbeschreibung"
+  label_new_project_descriptions: "Neue Projektbeschreibung"
+  error_duplicate_page: "Entschuldigung aber diese Seite existiert bereits. Bitte benutze den Änderungsknopf"
+  label_project_description_edit: "Projektbeschreibung editieren"
+  notice_page_updated: "Seite wurde erfolgreich aktualisiert"
+  # my_label: "My label"

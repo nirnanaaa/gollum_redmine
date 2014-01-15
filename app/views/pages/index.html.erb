@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <tr>
+      <th>
+        bla
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <%- @pages.each do |post|%>
+    
+    <tr><td><%= link_to post.path,show_post_path(post.path) %></td></tr>
+    <%- end%>
+  </tbody>
+</table>
+<pre>
+<%= User.current.to_yaml %>
+</pre>

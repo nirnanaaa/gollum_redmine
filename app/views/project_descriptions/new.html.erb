@@ -1,0 +1,12 @@
+<h1>Project description for: <%= @prj.name %></h1>
+<% content_for :header_tags do %>
+    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    
+<% end %>
+<%= form_for(@page, url: project_descriptions_path(@prj) ) do |f| %>
+
+<%= gollum_editor "pg", :content%>
+<%= f.button :submit%>
+
+<%- end%>

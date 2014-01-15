@@ -1,0 +1,9 @@
+# English strings go here for Rails i18n
+en:
+  label_menu_gollum: "Wiki"
+  label_project_wiki: "Project description"
+  label_new_project_descriptions: "Create project description"
+  error_duplicate_page: "Sorry but this page does aleady exist! Please use the edit button"
+  label_project_description_edit: "Edit project description"
+  notice_page_updated: "Page was successfully updated"
+  # my_label: "My label"
