@@ -22,4 +22,3 @@ Redmine::Plugin.register :gollum do
     }, :partial => 'settings/gollum_settings'
   
 end
-
