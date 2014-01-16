@@ -1,0 +1,45 @@
+<h3><%= l(:label_sidebar_meeting_dates) %></h3>
+
+
+<div class="autoscroll">
+<table class="list issues">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th style="text-align:left">Beschreibung</th>
+      <th>Editieren</th>
+      <th>Löschen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pages.each do |page|%>
+    <tr class="group open">
+      <td width="130">
+        <%= link_to seperate_date(page.title), show_meeting_protocol_path(@project, page.gollum_page.filename_stripped) %>
+      </td>
+      <td>
+        <%= dname(page.title).last %>
+      </td>
+      <td width="60" style="text-align:center">
+        <%= link_to "", edit_meeting_protocol_path(@project, page.gollum_page.filename_stripped), class: "icon icon-edit"%>
+      </td>
+      <td width="60" style="text-align:center">
+        <%= link_to "", delete_meeting_protocol_path(@project, page.gollum_page.filename_stripped), class: "icon icon-del", method: "delete"%>
+      </td>
+    <tr>
+      
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+
+<% content_for :sidebar do %>
+<h3><%= l(:label_sidebar_meetings) %></h3>
+<ul>
+  <li>
+    <%= link_to l(:label_new_meeting_protocol), new_meeting_protocol_path(@project) %>
+  </li>
+
+</ul>
+<% end %>

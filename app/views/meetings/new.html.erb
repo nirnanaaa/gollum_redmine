@@ -1,0 +1,19 @@
+<h3><%= l(:label_new_meeting_protocol) %></h3>
+
+
+<div class="autoscroll">
+  <%= form_tag(create_meetings_path(@project), method: "post") do %>
+  <%= label_tag "description_description", l(:label_description) %>
+    <%= text_field "description", "description" %>
+    <%= gollum_editor "description", "content", value: svar_clean(:meeting_description_content) %>
+    <%= button_tag(:create) %>
+  <% end %>
+</div>
+
+
+<% content_for :header_tags do %>
+
+    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    
+<% end %>
