@@ -1,5 +1,8 @@
 class Page < GollumRails::Page
   def in_folder?(folder)
-    true
+    self.class.wiki.page_file_dir.to_s == folder
   end
+  
+  
+  
 end
