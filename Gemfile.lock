@@ -27,7 +27,8 @@ GEM
       pygments.rb (~> 0.5.2)
       sanitize (~> 2.0.6)
       stringex (~> 2.1.0)
-    gollum_rails (1.4.8)
+    gollum_editor (0.4)
+    gollum_rails (1.4.12)
       activemodel (>= 3.2.11)
       activesupport (>= 3.2.11)
       gollum-lib (~> 1.0.9)
@@ -42,6 +43,7 @@ GEM
     pygments.rb (0.5.4)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
+    redcarpet (3.0.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     stringex (2.1.2)
@@ -54,4 +56,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  gollum_editor
   gollum_rails
+  redcarpet
