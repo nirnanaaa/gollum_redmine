@@ -12,4 +12,11 @@ class PagesController < ApplicationController
   def show
     @page = Page.find(params[:page])
   end
+  
+  def folder
+    GollumRails::Setup.wiki_options = { :sanitization => false, :base_path => '', :page_file_dir => params[:folder] }
+
+    @pages = Page.all
+    render :index
+  end
 end
