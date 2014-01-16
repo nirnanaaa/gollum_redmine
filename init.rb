@@ -9,16 +9,30 @@ Redmine::Plugin.register :gollum do
   author_url 'http://floriankasper.org'
   
   menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
-  permission :meetings, { :meetings => [:index, :vote, :show, :create, :update, :edit, :new] }, :public => false
-  menu :project_menu, :meetings, { :controller => 'mettings', :action => 'index' }, :caption => :label_meetings, :after => :activity, :param => :project_id
-  
+  permission :polls, { :polls => [:index, :vote] }, :public => true
+  menu :project_menu, :polls, { :controller => 'pages', :action => 'index' }, :caption => 'Polls', :after => :activity, :param => :project_id
 
-  
+  project_module :meetings do
+    permission :view_meetings, {:meetings => [:index, :show] }
+      
+    permission :edit_meeting,
+      {:meetings => [:create, :destroy, :new, :toggle_complete, :sort, :edit, :update],
+        :issues => [:create, :destroy, :new, :toggle_complete, :sort, :edit, :update]}
+   
+  end
+
+     
+  menu :project_menu, :meetings, {:controller => 'meetings', :action => 'index'}, 
+      :caption => :label_project_menu_meetings, :after => :activity, :param => :project_id
+
+  activity_provider :meetings, :default => false
+    
+    
 
   settings :default => {
     'wiki_root' => Rails.root.join('wiki.git'),
     'default_page' => 'Home',
     'project_prefix' => '/projects/'
-    }, :partial => 'settings/gollum_settings'
+  }, :partial => 'settings/gollum_settings'
   
 end
