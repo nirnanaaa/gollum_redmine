@@ -13,4 +13,12 @@ de:
   label_default_page: "Einstiegsseite"
   label_meetings: "Besprechungen"
   label_project_prefix: "Ordner für Projektbeschreibungen"
+  label_project_menu_meetings: "Beprechungsprotokolle"
+  label_sidebar_meeting_dates: "Letzte Protokolle"
+  label_sidebar_meeting: "Besprechungen"
+  label_new_meeting_protocol: "Neues Besprechungsprotokoll anlegen"
+  notice_meeting_successfully_saved: "Besprechungsprotokoll wurde erfolgreich angelegt"
+  error_page_already_exists: "Besprechungsprotokoll existiert bereits"
+  label_description: "Beschreibung"
+  
   # my_label: "My label"

@@ -13,4 +13,12 @@ en:
   label_meetings: "Meetings"
   label_project_prefix: "Folder, where Project descriptions are stored"
   notice_page_saved: "Saved successfully"
+  label_project_menu_meetings: "Meetings"
+  label_sidebar_meeting_dates: "Recent protocols"
+  label_sidebar_meetings: "Meetings"
+  label_new_meeting_protocol: "Create new"
+  notice_meeting_successfully_saved: "Successfully created meeting protocol"
+  error_page_already_exists: "Meeting protocol already exists"
+  label_description: "Description"
+  
   # my_label: "My label"
