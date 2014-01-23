@@ -1,1 +1,9 @@
 <%= @page.html_data.html_safe%>
+<%= content_for :sidebar do%>
+<h3>Page</h3>
+<ul>
+  <li><%= link_to 'Edit'  , edit_page_path(@page.url), class: 'icon icon-edit'%></li>
+  <li><%= link_to 'Remove', delete_page_path(@page.url), confirm: l(:label_page_destroy), class: 'icon icon-del'%></li>
+  <li><%= link_to 'Rename', rename_page_path(@page.url), class: 'icon icon-copy'%></li>
+</ul>
+<%end%>

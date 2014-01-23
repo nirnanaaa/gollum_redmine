@@ -1,0 +1,24 @@
+<h3><%= l(:label_edit_wiki_page) %></h3>
+
+
+<div class="autoscroll">
+  <%= form_tag(update_page_path(@page.url), method: "put") do %>
+    <p>
+      <%= gollum_editor "pg", "content", value: @page.content %>
+    </p>
+    <p>
+      <%= label_tag l(:label_edit_commit_message)%>
+      <%= text_field_tag :commit, "Updated Page #{@page.title}", name: 'pg[commit]', size: 100%>
+    </p>
+    <%= button_tag(:update) %>
+    
+  <% end %>
+</div>
+
+
+<% content_for :header_tags do %>
+
+    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    
+<% end %>

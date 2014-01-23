@@ -1,19 +1,27 @@
-<table>
-  <thead>
-    <tr>
-      <th>
-        bla
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    
-    <%- @pages.each do |post|%>
-    
-    <tr><td><%= link_to post.title,show_post_path(post.url) %></td></tr>
-    <%- end%>
-  </tbody>
-</table>
-<pre>
-<%= User.current.to_yaml %>
-</pre>
+<h3>All Pages in '<%= Page.wiki.page_file_dir %>'</h3>
+
+<%- @pages.each do |post|%>
+  <div class="post-outer">
+    <div class="post-inner">
+      <h5>
+        <%- if post.directly_in_folder?(folder)%>
+          <%= link_to post.title,show_post_path(post.url) %>
+        <%else%>
+          <%- unless folder_posted?(post)%>
+            <%= link_to subfolder(post),show_folder_path(combined_folder_link(post)) %>
+          <%end%>
+        <% end %>
+        
+      </h5>
+    </div>
+  </div>
+
+  
+<%end%>
+<%= content_for :sidebar do%>
+<h3>Wiki</h3>
+<ul>
+  <li>Add Page</li>
+  <li>Show all pages</li>
+</ul>
+<%end%>
