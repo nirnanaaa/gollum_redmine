@@ -25,4 +25,7 @@ en:
   label_edit_commit_message: "Commit message"
   label_page_destroy: "Do you really want to remove that page?"
   label_edit_title: "Title"
+  title_wiki: "Wiki"
+  title_meetings: "Meetings"
+  
   # my_label: "My label"
