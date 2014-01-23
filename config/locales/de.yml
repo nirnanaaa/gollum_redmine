@@ -20,5 +20,10 @@ de:
   notice_meeting_successfully_saved: "Besprechungsprotokoll wurde erfolgreich angelegt"
   error_page_already_exists: "Besprechungsprotokoll existiert bereits"
   label_description: "Beschreibung"
-  
+  label_edit_wiki_page: "Seite editieren"
+  label_edit_commit_message: "Commit nachricht"
+  label_page_destroy: "Sind Sie sicher dass Sie diese Seite löschen wollen?"
+  label_edit_title: "Name"
+  title_wiki: "Wiki"
+  title_meetings: "Besprechungen"
   # my_label: "My label"
