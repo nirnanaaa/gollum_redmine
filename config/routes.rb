@@ -16,7 +16,7 @@ RedmineApp::Application.routes.draw do
   get 'projects/:project_id/meetings/:meeting_id' => 'meetings#show', as: :show_meeting_protocol
 
   get '/pages' => 'pages#index'
-  get '/pages/:folder' => "pages#folder", :constraints => {:folder => /.*/}, as: :show_folder
+  get '/pages(/wiki)/:folder' => "pages#folder", :constraints => {:folder => /.*/}, as: :show_folder
   
   get "wiki/:page/edit" => "pages#edit", :constraints => {:page => /(.*)/}, as: :edit_page
   get "wiki/:page/rename" => "pages#rename", :constraints => {:page => /(.*)/}, as: :rename_page
