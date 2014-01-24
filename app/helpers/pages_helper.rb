@@ -25,6 +25,7 @@ module PagesHelper
   
   def parent_directory_link(title)
     #return params[:folder]
-    link_to title, path_for_url("/pages/"+params[:folder]), class: 'icon icon-add'
+    fldr = params[:folder] || path_for_url(params[:page])
+    link_to title, path_for_url("/pages/"+fldr), class: 'icon'
   end
 end
