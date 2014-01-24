@@ -1,0 +1,29 @@
+<h3><%= l(:label_edit_wiki_page) %></h3>
+
+
+<div class="autoscroll">
+  <%= form_tag(create_page_path(params[:folder]), method: "post") do %>
+    <p>
+      <%= label_tag l(:label_edit_title)%>
+      <%= text_field_tag :title, nil, name: 'pg[title]', size: 100%>
+    </p>
+    <p>
+      <%= gollum_editor "pg", "content" %>
+    </p>
+    <p>
+      <%= label_tag l(:label_edit_commit_message)%>
+      <%= text_field_tag :commit, "Created Page", name: 'pg[commit]', size: 100%>
+    </p>
+    <%= button_tag(:update) %>
+    
+  <% end %>
+</div>
+
+<% html_title l(:title_wiki) %>
+
+<% content_for :header_tags do %>
+
+    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
+    
+<% end %>

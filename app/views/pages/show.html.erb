@@ -5,6 +5,7 @@
   <li><%= link_to 'Edit'  , edit_page_path(@page.url), class: 'icon icon-edit'%></li>
   <li><%= link_to 'Remove', delete_page_path(@page.url), confirm: l(:label_page_destroy), class: 'icon icon-del'%></li>
   <li><%= link_to 'Rename', rename_page_path(@page.url), class: 'icon icon-copy'%></li>
+  <li><%= link_to 'New'  , new_page_path(path_for_url(@page.url)), class: 'icon icon-add'%></li>
 </ul>
 <%end%>
 <% html_title l(:title_wiki) %>

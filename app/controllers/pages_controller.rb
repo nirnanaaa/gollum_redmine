@@ -1,14 +1,28 @@
 class PagesController < ApplicationController
   unloadable
 
-  before_filter :find_page, except: [ :index, :folder ]
+  before_filter :find_page, except: [ :index, :folder, :new, :create ]
   def index
-    
+    reset_page_dir
     @page = Page.find(Setting["plugin_gollum"]["default_page"])
     render :show
   end
   
 
+  def new
+  end
+  
+  def create
+    Page.create(name: join_params,
+      format: :markdown,
+      content: params[:pg][:content],
+      commit: { 
+        name: "#{current_user.firstname} #{current_user.lastname}",
+        email: current_user.mail,
+        message: params[:pg][:commit]
+        })
+    redirect_to show_post_path(join_params)
+  end
   
   def show
   end
@@ -39,8 +53,8 @@ class PagesController < ApplicationController
   end
   
   def folder
-    GollumRails::Setup.wiki_options = { :sanitization => false, :base_path => '', :page_file_dir => params[:folder] }
 
+    GollumRails::Setup.wiki_options = { :sanitization => false, :base_path => '', :page_file_dir => params[:folder] }
     @pages = Page.all
     render :index
   end
@@ -48,15 +62,20 @@ class PagesController < ApplicationController
   
   private
   
-  def reset_path
-    
+  def join_params
+    File.join(params[:folder]||"", params[:pg][:title])
   end
+  
   def current_user
     @current_user ||= User.current
   end
-  def find_page
+  
+  def reset_page_dir
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
     
+  end
+  def find_page
+    reset_page_dir
     @page = Page.find(params[:page])
     render_404 unless @page
     
