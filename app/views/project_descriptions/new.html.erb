@@ -6,7 +6,14 @@
 <% end %>
 <%= form_for(@page, url: project_descriptions_path(@prj) ) do |f| %>
 
-<%= gollum_editor "pg", :content%>
+<p>
+  <div id="epiceditor"></div>
+  <textarea id="page-predefined" name="pg[content]" style="display:none"></textarea>
+</p>
 <%= f.button :submit%>
 
 <%- end%>
+
+
+<%= render partial: 'pages/editor'%>
+      

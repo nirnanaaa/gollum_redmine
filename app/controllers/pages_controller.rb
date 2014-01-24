@@ -47,8 +47,11 @@ class PagesController < ApplicationController
     flash[:notice] = l(:notice_page_updated)
     redirect_to show_post_path(@page.url)
   end
+  
   def destroy
+    
   end
+  
   def rename
   end
   

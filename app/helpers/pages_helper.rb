@@ -1,4 +1,5 @@
 module PagesHelper
+  include Gollum::AssetHelper
   def folder
     params[:folder]
   end

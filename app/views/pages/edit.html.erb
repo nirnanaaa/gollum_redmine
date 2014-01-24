@@ -4,7 +4,8 @@
 <div class="autoscroll">
   <%= form_tag(update_page_path(@page.url), method: "put") do %>
     <p>
-      <%= gollum_editor "pg", "content", value: @page.content %>
+      <div id="epiceditor"></div>
+      <textarea id="page-predefined" name="pg[content]" style="display:none"><%= @page.content %></textarea>
     </p>
     <p>
       <%= label_tag l(:label_edit_commit_message)%>
@@ -17,9 +18,6 @@
 
 <% html_title l(:title_wiki) %>
 
-<% content_for :header_tags do %>
 
-    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
-    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
-    
-<% end %>
+<%= render partial: 'pages/editor', locals: { predefined: @page}%>
+      

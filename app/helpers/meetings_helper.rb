@@ -1,4 +1,6 @@
 module MeetingsHelper
+  include Gollum::AssetHelper
+  
   def seperate_date(name)
     dname(name).first.gsub(/\_/, ".")
   end

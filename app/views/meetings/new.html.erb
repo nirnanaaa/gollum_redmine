@@ -5,16 +5,19 @@
   <%= form_tag(create_meetings_path(@project), method: "post") do %>
   <%= label_tag "description_description", l(:label_description) %>
     <%= text_field "description", "description" %>
-    <%= gollum_editor "description", "content", value: svar_clean(:meeting_description_content) %>
+    <p>
+      <div id="epiceditor"></div>
+      <textarea id="page-predefined" name="description[content]" style="display:none"></textarea>
+      
+    </p>
     <%= button_tag(:create) %>
   <% end %>
 </div>
 
 
-<% content_for :header_tags do %>
-
-    <%= stylesheet_link_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
-    <%= javascript_include_tag 'gollum_editor/gollum', :plugin => 'gollum' %>
-    
-<% end %>
 <% html_title l(:title_meetings) %>
+
+
+
+<%= render partial: 'pages/editor'%>
+      
