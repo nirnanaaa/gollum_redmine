@@ -1,5 +1,7 @@
-
-<%= @page.html_data.html_safe%>
+<h3><%= @page.title %></h3>
+<p>
+  <%= @page.html_data.html_safe%>
+</p>
 <%= content_for :sidebar do%>
 <h3>Page</h3>
 <ul>
