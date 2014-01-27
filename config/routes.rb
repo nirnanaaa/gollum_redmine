@@ -21,7 +21,10 @@ RedmineApp::Application.routes.draw do
   get '/pages(/wiki)/:folder' => "pages#folder", :constraints => {:folder => /.*/}, as: :show_folder
   
   get "wiki/:page/edit" => "pages#edit", :constraints => {:page => /(.*)/}, as: :edit_page
+  put "wiki/:page/rename" => "pages#renamed", :constraints => {:page => /(.*)/}, as: :renamed_page
+  
   get "wiki/:page/rename" => "pages#rename", :constraints => {:page => /(.*)/}, as: :rename_page
+  
   delete "wiki/:page/delete" => "pages#destroy", :constraints => {:page => /(.*)/}, as: :delete_page
   put "wiki/:page" => "pages#update", :constraints => {:page => /(.*)/}, as: :update_page
   

@@ -2,7 +2,7 @@
 
 
 <div class="autoscroll">
-  <%= form_tag(update_page_path(@page.url), method: "put") do %>
+  <%= form_tag(renamed_page_path(@page.url), method: "put") do %>
   
     <p>
       <%= label_tag l(:label_edit_title)%>

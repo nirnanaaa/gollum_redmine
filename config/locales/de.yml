@@ -26,4 +26,6 @@ de:
   label_edit_title: "Name"
   title_wiki: "Wiki"
   title_meetings: "Besprechungen"
+  notice_page_deleted: "Seite erfolgreich gelöscht"
+  
   # my_label: "My label"

@@ -12,6 +12,10 @@ class Page < GollumRails::Page
     slice_folder(folder).split("/").first
   end
   
+  def folder
+    File.split(url).first
+  end
+  
   def slice_folder(folder)
     return url if folder.nil? || folder.empty? || folder == "/" 
     folder = folder[1..-1] if folder.start_with?('/')
@@ -25,8 +29,8 @@ class Page < GollumRails::Page
 
   def rename(newname, commit={})
     path = File.split(url)
-    path.last.gsub!(title,newname)
-    wiki.rename_page(gollum_page, path.join("/"), commit)
+    path =[path.first, newname].join("/")
+    wiki.rename_page(gollum_page, path, commit)
     wiki.clear_cache
   end
   
