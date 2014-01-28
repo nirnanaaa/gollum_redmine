@@ -1,7 +1,8 @@
 require_dependency 'gollum/my_plugin_hook'
 require_dependency 'gollum/asset_helper'
-
+require_dependency 'gollum/searches_controller_patch'
 require_dependency 'gollum/gollum_init_hook'
+
 Redmine::Plugin.register :gollum do
   name 'Gollum integration plugin'
   author 'Florian Kasper'
