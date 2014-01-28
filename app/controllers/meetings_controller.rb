@@ -3,6 +3,8 @@ class MeetingsController < ApplicationController
 
   before_filter :set_gollum_path
   before_filter :find_project
+  before_filter :set_page, only: [ :edit, :update, :destroy, :show ]
+  
   def index
     Page.wiki.clear_cache
     @pages = Page.all
@@ -27,11 +29,17 @@ class MeetingsController < ApplicationController
   def new
     
   end
+  
   def update
+    if @page
+      @page.update_attributes(params[:description][:content], nil,
+        :markdown, commit_for(:update))
+      redirect_to meetings_path(project_id)
+    end
   end
+  
   def destroy
-    page = Page.find(params[:meeting_id])
-    render text: page.to_yaml
+    render text: @page.to_yaml
     #page.delete(commit_for(:destroy))
     #puppetredirect_to meetings_path(@project)
   end
@@ -41,8 +49,13 @@ class MeetingsController < ApplicationController
   
   private
   
+  def title_updated(title)
+    t = @page.title.split("__")
+    "#{t.first}__#{title.gsub(' ', '_')}"
+  end
+  
   def set_gollum_path
-    GollumRails::Setup.wiki_options = { :sanitization => false, :base_path => '', :page_file_dir => "runden/#{params[:project_id]}" }
+    GollumRails::Setup.wiki_options = { :sanitization => false, :base_path => '', :page_file_dir => "#{Setting.plugin_gollum['meetings_prefix'][1..-1]}#{params[:project_id]}" }
   end
   
   def date(description)
@@ -51,12 +64,25 @@ class MeetingsController < ApplicationController
   end
   
 
+  def set_page
+    GollumRails::Setup.wiki_options = { :page_file_dir => nil }
+    
+    @page = Page.find("#{path_prefix}/#{params[:meeting_id]}")
+    
+  end
   
   def find_project
-    project_id = params[:project_id] || (params[:meeting] && params[:meeting][:project_id])
     @project = Project.find(project_id)
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+  
+  def project_id
+    params[:project_id] || (params[:meeting] && params[:meeting][:project_id]) 
+  end
+  
+  def path_prefix
+    (Setting.plugin_gollum['meetings_prefix'][1..-1] + @project.name).downcase
   end
   
   def commit_for(action)
