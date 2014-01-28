@@ -34,6 +34,8 @@ class MeetingsController < ApplicationController
     if @page
       @page.update_attributes(params[:description][:content], nil,
         :markdown, commit_for(:update))
+      
+      flash[:notice] = l(:notice_meeting_successfully_saved) 
       redirect_to meetings_path(project_id)
     end
   end
