@@ -30,4 +30,5 @@ en:
   #
   notice_page_deleted: "Page was destroyed successfully"
   label_wiki_occurrences: "Occurrences"
+  title_configure_wiki: "Configure Gollum"
   # my_label: "My label"
