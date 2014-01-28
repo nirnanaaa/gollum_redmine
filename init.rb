@@ -35,7 +35,8 @@ Redmine::Plugin.register :gollum do
   settings :default => {
     'wiki_root' => Rails.root.join('wiki.git'),
     'default_page' => 'Home',
-    'project_prefix' => '/projects/'
+    'project_prefix' => '/projects/',
+    'meetings_prefix' => '/meetings/',
   }, :partial => 'settings/gollum_settings'
   
 end

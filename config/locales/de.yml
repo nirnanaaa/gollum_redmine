@@ -29,5 +29,6 @@ de:
   notice_page_deleted: "Seite erfolgreich gelöscht"
   label_wiki_occurrences: "Vorkommnisse"
   title_configure_wiki: "Gollum konfigurieren"
-  
+  label_meetings_prefix: "Ordner, in dem Besprechungsprotokolle gespeichert werden"
+
   # my_label: "My label"
