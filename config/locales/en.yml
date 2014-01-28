@@ -17,6 +17,7 @@ en:
   label_sidebar_meeting_dates: "Recent protocols"
   label_sidebar_meetings: "Meetings"
   label_new_meeting_protocol: "Create new"
+  label_edit_meeting_protocol: "Edit"
   notice_meeting_successfully_saved: "Successfully created meeting protocol"
   error_page_already_exists: "Meeting protocol already exists"
   label_description: "Description"
