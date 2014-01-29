@@ -1,6 +1,8 @@
 <h3><%= @page.title %></h3>
 
-<p></p>
+<p>
+  <%= @page.html_data.html_safe %>
+</p>
 
 <% html_title l(:title_meetings) %>
 
