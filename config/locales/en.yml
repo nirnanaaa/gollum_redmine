@@ -30,11 +30,17 @@ en:
   label_edit_commit_message: "Commit message"
   label_page_destroy: "Do you really want to remove that page?"
   label_edit_title: "Title"
+  label_msg: "Message"
+  label_name: "Name"
+  label_email: "Email"
   title_wiki: "Wiki"
   title_meetings: "Meetings"
+  
   #
   notice_page_deleted: "Page was destroyed successfully"
   label_wiki_occurrences: "Occurrences"
   title_configure_wiki: "Configure Gollum"
   label_meetings_prefix: "Folder, where Meeting protocols are stored"
+  label_show_global_activity: "Global activity"
+  label_show_activity: "Activity"
   # my_label: "My label"

@@ -15,18 +15,25 @@ RedmineApp::Application.routes.draw do
   post 'projects/:project_id/meetings' => 'meetings#create', as: :create_meetings
   get 'projects/:project_id/meetings/:meeting_id' => 'meetings#show', as: :show_meeting_protocol
 
-  get '/pages' => 'pages#index'
-  get '/pages(/:folder)/new' => "pages#new", :constraints => {:folder => /.*/}, as: :new_page
-  post '/pages(/:folder)' => "pages#create", :constraints => {:folder => /.*/}, as: :create_page
-  get '/pages(/wiki)/:folder' => "pages#folder", :constraints => {:folder => /.*/}, as: :show_folder
+  constraints(:folder => /.*/, :page => /.*/ ) do
+    get '/pages' => 'pages#index'
+    get '/pages/history' => "history#global", as: :history
+    get '/pages(/:folder)/new' => "pages#new", as: :new_page
+    post '/pages(/:folder)' => "pages#create", as: :create_page
+    get '/pages(/wiki)/:folder' => "pages#folder", as: :show_folder
+    get "/wiki/:page/history" => "history#show", as: :page_history
+    
+    get "/wiki/:page/edit" => "pages#edit", as: :edit_page
+    put "/wiki/:page/rename" => "pages#renamed", as: :renamed_page
   
-  get "wiki/:page/edit" => "pages#edit", :constraints => {:page => /(.*)/}, as: :edit_page
-  put "wiki/:page/rename" => "pages#renamed", :constraints => {:page => /(.*)/}, as: :renamed_page
+    get "/wiki/:page/rename" => "pages#rename", as: :rename_page
   
-  get "wiki/:page/rename" => "pages#rename", :constraints => {:page => /(.*)/}, as: :rename_page
+    delete "/wiki/:page/delete" => "pages#destroy", as: :delete_page
+    put "/wiki/:page" => "pages#update", as: :update_page
   
-  delete "wiki/:page/delete" => "pages#destroy", :constraints => {:page => /(.*)/}, as: :delete_page
-  put "wiki/:page" => "pages#update", :constraints => {:page => /(.*)/}, as: :update_page
+    get "/wiki/:page" => "pages#show", as: :show_post
+  end
+
+
   
-  get "wiki/:page" => "pages#show", :constraints => {:page => /(.*)/}, as: :show_post
 end

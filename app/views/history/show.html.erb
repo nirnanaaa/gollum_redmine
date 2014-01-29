@@ -1,0 +1,46 @@
+
+
+<h3>Version history</h3>
+<% if @history.empty? %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+
+<% else %>
+<div class="autoscroll">
+<table class="list issues">
+  <thead>
+    <tr>
+      <th><%= l(:label_date)%></th>
+      <th style="text-align:left"><%= l(:label_msg)%></th>
+      <th style="text-align:left"><%= l(:label_name)%></th>
+      <th style="text-align:left"><%= l(:label_email)%></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @history.each do |h|%>
+      <tr class="open">
+        <td width="130">
+          <%= h.committed_date.strftime("%d.%m.%Y %H:%M") %>
+
+        </td>
+        <td style="text-align:left">
+          <%= h.message %>
+        </td>
+        <td width="130" style="text-align:left">
+          <%= h.author.name%>
+        </td>
+        <td style="text-align:left">
+          <%= h.author.email%>
+
+        </td>
+      <tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+<% end%>
+<% html_title l(:title_wiki) %>
+
+<%= content_for :sidebar do%>
+<h3>Wiki</h3>
+
+<%end%>
