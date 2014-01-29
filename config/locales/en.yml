@@ -21,7 +21,11 @@ en:
   notice_meeting_successfully_saved: "Successfully created meeting protocol"
   error_page_already_exists: "Meeting protocol already exists"
   label_description: "Description"
-  #
+  label_page: "Page"
+  label_edit: "Edit"
+  label_remove: "Remove"
+  label_submit_new: "Create"
+  label_update_page: "Update"
   label_edit_wiki_page: "Edit page"
   label_edit_commit_message: "Commit message"
   label_page_destroy: "Do you really want to remove that page?"

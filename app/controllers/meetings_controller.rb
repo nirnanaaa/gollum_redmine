@@ -53,7 +53,7 @@ class MeetingsController < ApplicationController
   
   def title_updated(title)
     t = @page.title.split("__")
-    "#{t.first}__#{title.gsub(' ', '_')}"
+    "#{t.first}__#{title.gsub(/(\s|-)+/, '_')}"
   end
   
   def set_gollum_path
@@ -62,15 +62,15 @@ class MeetingsController < ApplicationController
   
   def date(description)
     t = Time.now
-    "#{t.day}_#{t.month}_#{t.year}__#{description.gsub(' ', '_')}"
+    "#{t.day}_#{t.month}_#{t.year}__#{description.gsub(/(\s|-)+/, '_')}"
   end
   
 
   def set_page
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
-    
+    #render text:  "#{path_prefix}/#{params[:meeting_id]}"
     @page = Page.find("#{path_prefix}/#{params[:meeting_id]}")
-    
+    render_404 unless @page
   end
   
   def find_project
