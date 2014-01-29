@@ -7,7 +7,7 @@ Redmine::Plugin.register :gollum do
   name 'Gollum integration plugin'
   author 'Florian Kasper'
   description 'This is a plugin for integrating gollum into your app'
-  version '0.0.1'
+  version '0.9.0'
   url 'http://example.com/path/to/plugin'
   author_url 'http://floriankasper.org'
   
