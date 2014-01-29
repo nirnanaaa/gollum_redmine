@@ -14,6 +14,7 @@ GEM
     builder (3.1.4)
     charlock_holmes (0.6.9.4)
     diff-lcs (1.2.5)
+    github-markdown (0.6.4)
     github-markup (0.7.5)
     gitlab-grit (2.6.0)
       charlock_holmes (~> 0.6.9)
@@ -27,8 +28,7 @@ GEM
       pygments.rb (~> 0.5.2)
       sanitize (~> 2.0.6)
       stringex (~> 2.1.0)
-    gollum_editor (0.4)
-    gollum_rails (1.5.0)
+    gollum_rails (1.5.1)
       activemodel (>= 3.2.11)
       activesupport (>= 3.2.11)
       gollum-lib (~> 1.0.9)
@@ -43,7 +43,6 @@ GEM
     pygments.rb (0.5.4)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
-    redcarpet (3.0.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     stringex (2.1.2)
@@ -56,6 +55,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  gollum_editor
+  github-markdown
   gollum_rails (~> 1.5.0)
-  redcarpet
