@@ -41,9 +41,9 @@ class MeetingsController < ApplicationController
   end
   
   def destroy
-    render text: @page.to_yaml
-    #page.delete(commit_for(:destroy))
-    #puppetredirect_to meetings_path(@project)
+    #render text: @page.to_yaml
+    @page.delete(commit_for(:destroy))
+    redirect_to meetings_path(@project)
   end
   
   def edit
