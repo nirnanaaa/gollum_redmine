@@ -43,6 +43,7 @@ GEM
     pygments.rb (0.5.4)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
+    redcarpet (3.0.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     stringex (2.1.2)
@@ -57,3 +58,4 @@ PLATFORMS
 DEPENDENCIES
   github-markdown
   gollum_rails (~> 1.5.0)
+  redcarpet
