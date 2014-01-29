@@ -27,9 +27,7 @@ Redmine::Plugin.register :gollum do
      
   menu :project_menu, :meetings, {:controller => 'meetings', :action => 'index'}, 
       :caption => :label_project_menu_meetings, :after => :activity, :param => :project_id
-
-  activity_provider :meetings, :default => false
-    
+      
     
 
   settings :default => {
