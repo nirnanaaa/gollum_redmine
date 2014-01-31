@@ -13,7 +13,8 @@
           <%= link_to post.title,show_post_path(post.url) %>
         <%else%>
           <%- unless folder_posted?(post)%>
-            <%= link_to subfolder(post),show_folder_path(combined_folder_link(post)) %>
+          <% @folders ||= []%>
+          <% @folders << subfolder(post) %>
           <%end%>
         <% end %>
         
@@ -22,7 +23,20 @@
   </div>
 
   
-<%end%>
+<% end %>
+<% if @folders %>
+
+  <%- @folders.sort_by{|m| m.downcase }.each do |folder|%>
+  <div class="post-outer">
+    <div class="post-inner">
+      <h5>
+        <%= link_to folder,show_folder_path(combined_folder_link(folder)), style: 'padding-left: 20px;' %>
+      </h5>
+    </div>
+  </div>
+
+  <% end %>
+<% end%>
 <% html_title l(:title_wiki) %>
 
 <%= content_for :sidebar do%>

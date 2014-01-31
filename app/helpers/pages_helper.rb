@@ -7,7 +7,7 @@ module PagesHelper
     post.subfolder(folder)
   end
   def combined_folder_link(post)
-    "#{folder}/#{subfolder(post)}"
+    "#{folder}#{post}"
   end
   def folder_posted?(post)
     @posts ||= []
