@@ -20,6 +20,11 @@ Please check the issues page for bugs.
     cd path/to/your/redmine/installation/plugins
     git clone https://github.com/nirnanaaa/gollum_redmine.git gollum
     ```
+* Restart your Rails application using rails builtin webrick:
+    ```sh
+    GOLLUM_WIKI_LOCATION=/Users/nirnanaaa/wiki.git rails s
+    ```
+ 
 * Restart your Rails app and you are good to go.
 * Go to the Administration > Plugins tab
 * Configure the Gollum integration plugin
