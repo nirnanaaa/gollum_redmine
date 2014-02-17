@@ -23,6 +23,18 @@ class Page < GollumRails::Page
     url.tap{|s| s.slice!(folder)}
   end
   
+  def render_html_with_redmine_tags
+    html_data.gsub(/#\b(\d)+?\b/) do |m|
+      m.strip!
+      m = m[1..-1]
+      if Issue.exists?(id: m.to_i)
+        ActionController::Base.helpers.link_to("##{m}", "/issues/#{m}")
+      else
+        "##{m}"
+      end
+    end.html_safe
+    #html_data.gsub(/#(\d+)/, Issue.exists?(id: '\1'.to_i) ? ActionController::Base.helpers.link_to('#\1','\1') : "123").html_safe
+  end
   def directly_in_folder?(folder)
     !slice_folder(folder).include?('/')
   end
