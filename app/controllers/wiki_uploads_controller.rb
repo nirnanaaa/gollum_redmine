@@ -2,7 +2,8 @@ class WikiUploadsController < ApplicationController
   unloadable
   def create
     if params[:file]
-      fullname = params[:file].original_filename
+      fullname = Gollum::Page.cname(params[:file].original_filename)
+
       tempfile = params[:file].tempfile
     end
 
@@ -24,9 +25,9 @@ class WikiUploadsController < ApplicationController
         committer.update_working_dir(dir, filename, format)
       end
       committer.commit
-      redirect_to(show_uploads_path(params[:file].original_filename),notice: l('label_was_uploaded_successfully'))
+      redirect_to(show_uploads_path(fullname),notice: l('label_was_uploaded_successfully'))
     rescue Gollum::DuplicatePageError => e
-      redirect_to(show_uploads_path(params[:file].original_filename),error: l('label_was_found'))
+      redirect_to(show_uploads_path(fullname),error: l('label_was_found'))
 
     end
     
