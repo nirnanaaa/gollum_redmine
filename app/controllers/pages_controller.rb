@@ -5,7 +5,11 @@ class PagesController < ApplicationController
   def index
     reset_page_dir
     @page = Page.find(Setting["plugin_gollum"]["default_page"])
-    render :show
+    if @page
+      render :show
+    else
+      render_404
+    end
   end
   
 
