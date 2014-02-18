@@ -72,6 +72,7 @@ class PagesController < ApplicationController
   end
   
   def join_params
+    fn = params[:pg][:title]
     File.join(params[:folder]||"", params[:pg][:title])
   end
   
