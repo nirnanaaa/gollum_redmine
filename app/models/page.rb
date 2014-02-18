@@ -26,7 +26,6 @@ class Page < GollumRails::Page
   def render_html_with_redmine_tags
     html_data.gsub(/#(\d+|\d\s)\b/) do |m|
       m.strip!
-      Rails.logger.info m
       m = m[1..-1]
       if Issue.exists?(id: m.to_i)
         ActionController::Base.helpers.link_to("##{m}", "/issues/#{m}")
