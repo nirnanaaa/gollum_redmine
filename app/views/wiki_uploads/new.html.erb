@@ -1,0 +1,5 @@
+<%= form_tag(wiki_uploads_path, multipart: true) do |f| %>
+  <%= file_field_tag :file %> 
+  <%= button_tag :submit %>
+
+<% end %>

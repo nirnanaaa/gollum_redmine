@@ -30,7 +30,7 @@
   <div class="post-outer">
     <div class="post-inner">
       <h5>
-        <%= link_to folder,show_folder_path(combined_folder_link(folder)), style: 'padding-left: 20px;' %>
+        <%= link_to folder,show_folder_path(combined_folder_link(folder_s)), style: 'padding-left: 20px;' %>
       </h5>
     </div>
   </div>
@@ -42,7 +42,7 @@
 <%= content_for :sidebar do%>
 <h3>Wiki</h3>
 <ul>
-  <li><%= link_to 'New'  , new_page_path(params[:folder]), class: 'icon icon-add'%></li>
-  <li><%= link_to 'Show all pages'  , show_folder_path(params[:folder]), class: 'icon icon-fav-off'%></li>
+  <li><%= link_to 'New'  , new_page_path(folder_s), class: 'icon icon-add'%></li>
+  <li><%= link_to 'Show all pages'  , show_folder_path(folder_s), class: 'icon icon-fav-off'%></li>
 </ul>
 <%end%>

@@ -33,7 +33,16 @@ class Page < GollumRails::Page
         "##{m}"
       end
     end.html_safe
-    #html_data.gsub(/#(\d+)/, Issue.exists?(id: '\1'.to_i) ? ActionController::Base.helpers.link_to('#\1','\1') : "123").html_safe
+  end
+
+
+  def sanitized_filename
+    Page.sanitize_filename(name)
+  end
+  def self.sanitize_filename(filename)
+    fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
+    fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, '_' }
+    return fn.join '.'
   end
   def directly_in_folder?(folder)
     !slice_folder(folder).include?('/')

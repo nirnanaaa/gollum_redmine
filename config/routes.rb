@@ -15,6 +15,10 @@ RedmineApp::Application.routes.draw do
   post 'projects/:project_id/meetings' => 'meetings#create', as: :create_meetings
   get 'projects/:project_id/meetings/:meeting_id' => 'meetings#show', as: :show_meeting_protocol
 
+  get 'newWikiUploads' => 'wiki_uploads#new', as: :new_upload
+  post 'newWikiUploads' => 'wiki_uploads#create', as: :wiki_uploads
+  get 'uploads/:filename' => 'wiki_uploads#show', as: :show_uploads, :constraints => { :filename => /.*/ }
+
   constraints(:folder => /.*/, :page => /.*/ ) do
     get '/pages' => 'pages#index'
     get '/pages/history' => "history#global", as: :history

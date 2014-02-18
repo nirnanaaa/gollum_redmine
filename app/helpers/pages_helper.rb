@@ -1,5 +1,8 @@
 module PagesHelper
   include Gollum::AssetHelper
+  def folder_s
+    params[:folder].gsub(/\/$/, "")
+  end
   def folder
     params[:folder]
   end
