@@ -62,7 +62,12 @@ class MeetingsController < ApplicationController
   
   def date(description)
     t = Time.now
-    "#{t.day}_#{t.month}_#{t.year}__#{description.gsub(/(\s|-)+/, '_')}"
+    cur = "#{t.day} #{t.month} #{t.year}  #{gpage_description(description)}"
+    Gollum::Page.cname(cur, '_')
+  end
+
+  def gpage_description(description)
+    Gollum::Page.cname(description)
   end
   
 
@@ -70,6 +75,7 @@ class MeetingsController < ApplicationController
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
     #render text:  "#{path_prefix}/#{params[:meeting_id]}"
     @page = Page.find("#{path_prefix}/#{params[:meeting_id]}")
+    Rails.logger.info("Gollum page details: PREFIX: #{path_prefix}, MEETING_ID: #{params[:meeting_id]}")
     render_404 unless @page
   end
   
@@ -84,7 +90,7 @@ class MeetingsController < ApplicationController
   end
   
   def path_prefix
-    (Setting.plugin_gollum['meetings_prefix'][1..-1] + @project.name).downcase
+    File.join(Setting.plugin_gollum['meetings_prefix'] + @project.name).downcase
   end
   
   def commit_for(action)
