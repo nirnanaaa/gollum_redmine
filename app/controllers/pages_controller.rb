@@ -73,7 +73,7 @@ class PagesController < ApplicationController
   
   def join_params
     fn = params[:pg][:title]
-    File.join(params[:folder]||"", params[:pg][:title])
+    File.join(params[:folder]||"", params[:pg][:title]).gsub(/^\//, '')
   end
   
   def current_user
