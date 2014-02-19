@@ -9,39 +9,37 @@ class MeetingsController < ApplicationController
     Page.wiki.clear_cache
     @pages = Page.all
   end
+
   def show
-    
   end
+
   def create
     if params[:description][:description].empty? 
-      flash[:error] = l(:error_description_cannot_be_empty)
-      session[:meeting_description_content] = params[:description][:content]
-      redirect_to new_meeting_protocol_path(@project)
+      session[:meeting_description_content] = content 
+      redirect_to new_meeting_protocol_path(@project), error: :error_description_cannot_be_empty 
     else
-      @page = Page.create!(name: date(params[:description][:description]), format: :markdown, content: params[:description][:content], commit: commit_for(:create))
-      flash[:notice] = l(:notice_meeting_successfully_saved)
-      redirect_to meetings_path(@project)
+      @page = Page.create!(name: date(params[:description][:description]), 
+                           format: :markdown, 
+                           content: content,
+                           commit: commit_for(:create))
+      redirect_to meetings_path(@project), notice: :notice_meeting_successfully_saved
     end
   rescue Gollum::DuplicatePageError => e
-    flash[:error] = l(:error_page_already_exists)
-    redirect_to meetings_path(@project)
+    redirect_to meetings_path(@project), error: :error_page_already_exists
   end
+
   def new
-    
   end
   
   def update
     if @page
-      @page.update_attributes(params[:description][:content], nil,
+      @page.update_attributes(content, nil,
         :markdown, commit_for(:update))
-      
-      flash[:notice] = l(:notice_meeting_successfully_saved) 
-      redirect_to meetings_path(project_id)
+      redirect_to meetings_path(project_id), notice: :notice_meeting_successfully_saved
     end
   end
   
   def destroy
-    #render text: @page.to_yaml
     @page.delete(commit_for(:destroy))
     redirect_to meetings_path(@project)
   end
@@ -50,6 +48,10 @@ class MeetingsController < ApplicationController
   end
   
   private
+
+  def content
+    params[:description][:content]
+  end
   
   def title_updated(title)
     t = @page.title.split("__")
@@ -70,12 +72,10 @@ class MeetingsController < ApplicationController
     Gollum::Page.cname(description)
   end
   
-
   def set_page
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
-    #render text:  "#{path_prefix}/#{params[:meeting_id]}"
-    @page = Page.find(File.join(path_prefix,params[:meeting_id].strip))
-    Rails.logger.info("Gollum page details: PREFIX: #{path_prefix}, MEETING_ID: #{params[:meeting_id]}")
+    page = File.join(path_prefix, params[:meeting_id].strip)
+    @page = Page.find(page)
     render_404 unless @page
   end
   
