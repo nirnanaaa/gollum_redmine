@@ -74,7 +74,7 @@ class MeetingsController < ApplicationController
   def set_page
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
     #render text:  "#{path_prefix}/#{params[:meeting_id]}"
-    @page = Page.find("#{path_prefix}/#{params[:meeting_id]}")
+    @page = Page.find(File.join(path_prefix,params[:meeting_id].strip))
     Rails.logger.info("Gollum page details: PREFIX: #{path_prefix}, MEETING_ID: #{params[:meeting_id]}")
     render_404 unless @page
   end
@@ -90,7 +90,8 @@ class MeetingsController < ApplicationController
   end
   
   def path_prefix
-    File.join(Setting.plugin_gollum['meetings_prefix'] + @project.name).downcase
+    path = Setting.plugin_gollum['meetings_prefix'] + @project.identifier
+    File.join(path).downcase
   end
   
   def commit_for(action)
