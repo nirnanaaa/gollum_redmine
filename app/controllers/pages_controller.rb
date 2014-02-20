@@ -3,8 +3,7 @@ class PagesController < ApplicationController
 
   before_filter :find_page, except: [ :index, :folder, :new, :create ]
   def index
-    reset_page_dir
-    @page = Page.find(Setting["plugin_gollum"]["default_page"])
+    @page = Page.find(Setting["plugin_gollum"]["default_page"], Page.wiki.ref, true)
     if @page
       render :show
     else

@@ -40,10 +40,19 @@ class WikiUploadsController < ApplicationController
     dir = Setting["plugin_gollum"]["upload_destination"] || "uploads"
     path = File.join(dir, params[:filename])
     file = Page.wiki.file(path, Page.wiki.ref, true)
-    if file.on_disk?
-      send_file file.on_disk_path, :disposition => 'inline'
+    if file
+      if file.on_disk?
+        send_file file.on_disk_path, :disposition => 'inline'
+      else
+        send_data file.raw_data, type: file.mime_type, disposition: 'inline'
+      end
     else
-      send_data file.raw_data, type: file.mime_type, disposition: 'inline'
+      rsc = Rails.root.join('plugins', 'gollum', 'assets', 'image_notfound.png')
+      begin
+        send_file rsc, disposition: 'inline' 
+      rescue ActionController::MissingFile => e
+        render text: "File #{path} not found. Also the Rescue image was not found under #{rsc}"
+      end
     end
   end
 
@@ -51,7 +60,7 @@ class WikiUploadsController < ApplicationController
   private
 
   def current_user
-    User.current
+   @user ||= User.current
   end
   def current_user_commit(message=nil)
     {
