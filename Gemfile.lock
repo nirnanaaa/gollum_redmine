@@ -28,7 +28,7 @@ GEM
       pygments.rb (~> 0.5.2)
       sanitize (~> 2.0.6)
       stringex (~> 2.1.0)
-    gollum_rails (1.5.3)
+    gollum_rails (1.5.4)
       activemodel (>= 3.2.11)
       activesupport (>= 3.2.11)
       gollum-lib (~> 1.0.9)
@@ -56,4 +56,4 @@ PLATFORMS
 
 DEPENDENCIES
   github-markdown
-  gollum_rails (~> 1.5.3)
+  gollum_rails (~> 1.5.4)

@@ -13,11 +13,7 @@
   <li><%= link_to 'New'  , new_page_path(path_for_url(@page.url)), class: 'icon icon-add'%></li>
   <li><%= link_to 'Upload file', new_upload_path %></li>
   <li><%= link_to l(:label_show_activity)  , page_history_path(@page.url), class: 'icon icon-time'%></li>
-
-  <% if @page.name == Setting["plugin_gollum"]["default_page"].downcase %>
   <li><%= link_to l(:label_show_global_activity)  , history_path, class: 'icon icon-time'%></li>
-  
-  <% end %>
 </ul>
 <%end%>
 <% html_title l(:title_wiki) %>
