@@ -3,7 +3,8 @@ class PagesController < ApplicationController
 
   before_filter :find_page, except: [ :index, :folder, :new, :create ]
   def index
-    @page = Page.find(Setting["plugin_gollum"]["default_page"], Page.wiki.ref, true)
+    GollumRails::Setup.wiki_options = { :page_file_dir => nil }
+    @page = Page.find(Setting["plugin_gollum"]["default_page"])
     if @page
       render :show
     else
