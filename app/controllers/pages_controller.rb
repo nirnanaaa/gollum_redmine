@@ -78,6 +78,7 @@ class PagesController < ApplicationController
   end
 
   def find_page
+    GollumRails::Setup.wiki_options = { :base_path => '', :page_file_dir => nil }
     @page = Page.find(params[:page], Page.wiki.ref, true)
     render_404 unless @page
   end
