@@ -31,14 +31,15 @@ class PagesController < ApplicationController
   def edit
   end
   def update
-    GollumRails::Setup.wiki_options = { :page_file_dir => nil }
+    Page.reset_folder
     @page.update_attributes(params[:pg][:content],nil,:markdown,current_user_commit)
+
     flash[:notice] = l(:notice_page_updated)
     redirect_to show_post_path(@page.url)
   end
 
   def destroy
-    GollumRails::Setup.wiki_options = { :page_file_dir => nil }
+    Page.reset_folder
     @page.delete(current_user_commit("Removed Page"))
     flash[:notice] = l(:notice_page_deleted)
     redirect_to(show_folder_path(@page.folder))
@@ -82,8 +83,7 @@ class PagesController < ApplicationController
   end
 
   def find_page
-    GollumRails::Setup.wiki_options = { :page_file_dir => nil }
-    @page = Page.find(params[:page])
+    @page = Page.find(params[:page], Page.wiki.ref, true)
     render_404 unless @page
   end
 end

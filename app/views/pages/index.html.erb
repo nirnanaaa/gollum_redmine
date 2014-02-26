@@ -14,7 +14,7 @@
         <%else%>
           <%- unless folder_posted?(post)%>
           <% @folders ||= []%>
-          <% @folders << subfolder(post) %>
+          <% @folders << post.next_folder('/'+params[:folder].chomp.gsub(/\/+$/, '') ) %>
           <%end%>
         <% end %>
         
@@ -25,12 +25,11 @@
   
 <% end %>
 <% if @folders %>
-
   <%- @folders.sort_by{|m| m.downcase }.each do |folder|%>
   <div class="post-outer">
     <div class="post-inner">
       <h5>
-        <%= link_to folder,show_folder_path(combined_folder_link(folder_s)), style: 'padding-left: 20px;' %>
+        <%= link_to folder,show_folder_path(File.join(folder_s, folder)), style: 'padding-left: 20px;' %>
       </h5>
     </div>
   </div>
