@@ -3,14 +3,24 @@
 
 <div class="autoscroll">
   <%= form_tag(update_page_path(@page.url), method: "put") do %>
-    <p>
-      <div id="epiceditor"></div>
-      <textarea id="page-predefined" name="pg[content]" style="display:none"><%= @page.content %></textarea>
-    </p>
-    <p>
-      <%= label_tag l(:label_edit_commit_message)%>
-      <%= text_field_tag :commit, "Updated Page #{@page.title}", name: 'pg[commit]', size: 100%>
-    </p>
+    <div class="box tabular">
+      <div id="all_attributes">
+        <p class="editor">
+          <%= label_tag '', for: 'epiceditor' do %>
+            <%= l(:label_content) %>&nbsp;&nbsp;
+          <%end%>
+          <div id="epiceditor"></div>
+          <textarea id="page-predefined" name="pg[content]" style="display:none"><%= @page.content %></textarea>
+        </p>
+        <p>
+          <%= label_tag '', for: 'commit_message' do%>
+            <%= l(:label_edit_commit_message) %>
+            <span class="required"> *</span>
+          <% end %>
+          <%= text_field_tag :commit, "Updated Page #{@page.title}", name: 'pg[commit]', size: 100%>
+        </p>
+      </div>
+    </div>
     <%= button_tag(l(:label_update_page)) %>
     
   <% end %>

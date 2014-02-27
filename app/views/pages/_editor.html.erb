@@ -1,18 +1,16 @@
-<% content_for :header_tags do %>
-
-  <%= javascript_include_tag 'epiceditor.min.js', :plugin => 'gollum' %>
-<% end %>
-<script type="application/javascript">
-  var editor = new EpicEditor({
-    basePath: '',
-    textarea: 'page-predefined',
-    clientSideStorage: false,
-    autogrow: true,
-    theme: {
-      base: "<%= plugin_asset_link('/stylesheets/base/epiceditor.css', plugin: 'gollum')%>",
-      preview: "<%= plugin_asset_link('/stylesheets/preview/github.css', plugin: 'gollum')%>",
-      editor: "<%= plugin_asset_link('/stylesheets/editor/epic-dark.css', plugin: 'gollum')%>"
-    }
-    
-  }).load();
-</script>
+<%= javascript_include_tag 'epiceditor.min.js', :plugin => 'gollum' %>
+<aside class="__editor--main">
+  <script type="application/javascript">
+    var editor = new EpicEditor({
+      basePath: '',
+      textarea: 'page-predefined',
+      clientSideStorage: false,
+      autogrow: true,
+      theme: {
+        base: "<%= plugin_asset_link('/stylesheets/base/epiceditor.css', plugin: 'gollum')%>",
+        preview: "<%= plugin_asset_link('/stylesheets/preview/github.css', plugin: 'gollum')%>",
+        editor: "<%= plugin_asset_link('/stylesheets/editor/epic-dark.css', plugin: 'gollum')%>"
+      }
+    }).load();
+  </script>
+</aside>

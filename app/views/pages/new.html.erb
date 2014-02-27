@@ -1,27 +1,38 @@
-<h3><%= l(:label_edit_wiki_page) %></h3>
+<h3><%= l(:label_new_wiki_page) %></h3>
 
 
 <div class="autoscroll">
   <%= form_tag(create_page_path(folder_s), method: "post") do %>
-    <p>
-      <%= label_tag l(:label_edit_title)%>
-      <%= text_field_tag :title, params[:title], name: 'pg[title]', size: 100%>
-    </p>
-    <p>
-      <div id="epiceditor"></div>
-      <textarea id="page-predefined" name="pg[content]" style="display:none"></textarea>
-    </p>
-    <p>
-      <%= label_tag l(:label_edit_commit_message)%>
-      <%= text_field_tag :commit, "Created Page", name: 'pg[commit]', size: 100%>
-    </p>
+    <div class="box tabular">
+      <div id="all_attributes">
+        <p>
+          <%= label_tag '', for: 'issue_subject' do%>
+            <%= l(:label_edit_title) %>
+            <span class="required"> *</span>
+          <% end %>
+          <%= text_field_tag :title, params[:title], id: 'issue_subject', name: 'pg[title]', maxlength: 255, size: 80 %>
+        </p>
+        <p class="editor">
+          <%= label_tag '', for: 'epiceditor' do %>
+            <%= l(:label_content) %>&nbsp;&nbsp;
+          <%end%>
+          <div id="epiceditor"></div>
+          <textarea id="page-predefined" name="pg[content]" style="display:none"></textarea>
+        </p>
+        <p>
+          <%= label_tag '', for: 'commit_message' do%>
+            <%= l(:label_edit_commit_message)%>
+            <span class="required"> *</span>
+          <% end %>
+          <%= text_field_tag :commit, "Created Page", id: 'commit_message', name: 'pg[commit]', size: 100%>
+        </p>
+      </div>
+    </div> 
     <%= button_tag(l(:label_submit_new)) %>
-    
   <% end %>
 </div>
 
 <% html_title l(:title_wiki) %>
-
 
 
 <%= render partial: 'pages/editor', locals: { predefined: false}%>

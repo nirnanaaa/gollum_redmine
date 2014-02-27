@@ -35,12 +35,15 @@ en:
   label_email: "Email"
   title_wiki: "Wiki"
   title_meetings: "Meetings"
-  
-  #
   notice_page_deleted: "Page was destroyed successfully"
   label_wiki_occurrences: "Occurrences"
   title_configure_wiki: "Configure Gollum"
   label_meetings_prefix: "Folder, where Meeting protocols are stored"
   label_show_global_activity: "Global activity"
   label_show_activity: "Activity"
+  notice_page_renamed_successfully: "Page was renamed successfully"
+  notice_page_does_not_exist: "Sorry, but this page does not exist"
+  error_page_title_not_present: "Supplied title was empty"
+  label_new_wiki_page: "New page"
+  label_content: "Content"
   # my_label: "My label"
