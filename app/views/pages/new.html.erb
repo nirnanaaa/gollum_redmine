@@ -5,7 +5,7 @@
   <%= form_tag(create_page_path(folder_s), method: "post") do %>
     <p>
       <%= label_tag l(:label_edit_title)%>
-      <%= text_field_tag :title, nil, name: 'pg[title]', size: 100%>
+      <%= text_field_tag :title, params[:title], name: 'pg[title]', size: 100%>
     </p>
     <p>
       <div id="epiceditor"></div>

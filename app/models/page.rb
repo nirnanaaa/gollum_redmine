@@ -50,9 +50,12 @@ class Page < GollumRails::Page
 
   def rename(newname, commit={})
     path = File.split(url)
-    path =[path.first, newname].join("/")
-    wiki.rename_page(gollum_page, path, commit)
+    npath = [path.first, newname].join("/")
+    wiki.rename_page(gollum_page, npath, commit)
     wiki.clear_cache
+    @gollum_page = wiki.paged(newname, path.first, true)
+    update_attrs
+    self
   end
   
   

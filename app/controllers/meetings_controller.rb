@@ -16,16 +16,16 @@ class MeetingsController < ApplicationController
   def create
     if params[:description][:description].empty? 
       session[:meeting_description_content] = content 
-      redirect_to new_meeting_protocol_path(@project), error: :error_description_cannot_be_empty 
+      redirect_to new_meeting_protocol_path(@project), error: l(:error_description_cannot_be_empty)
     else
       @page = Page.create!(name: date(params[:description][:description]), 
                            format: :markdown, 
                            content: content,
                            commit: commit_for(:create))
-      redirect_to meetings_path(@project), notice: :notice_meeting_successfully_saved
+      redirect_to meetings_path(@project), notice: l(:notice_meeting_successfully_saved)
     end
   rescue Gollum::DuplicatePageError => e
-    redirect_to meetings_path(@project), error: :error_page_already_exists
+    redirect_to meetings_path(@project), error: l(:error_page_already_exists)
   end
 
   def new
