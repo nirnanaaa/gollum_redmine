@@ -72,9 +72,7 @@ class PagesController < ApplicationController
   end
 
   def folder
-    GollumRails::Setup.wiki_options = { :base_path => '', :page_file_dir => params[:folder] }
-    #Page.set_folder(params[:folder])
-    @pages = Page.all
+    @pages = Page.all(folder: params[:folder], base: '')
     render :index
   end
 
@@ -99,6 +97,6 @@ class PagesController < ApplicationController
 
   def find_page
     @page = Page.find(params[:page], Page.wiki.ref, true)
-    render_404 unless @page
+    redirect_to new_page_path(title: params[:page]), notice: l(:notice_page_does_to_exist) unless @page
   end
 end
