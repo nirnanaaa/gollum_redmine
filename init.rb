@@ -2,6 +2,7 @@ require_dependency 'gollum/my_plugin_hook'
 require_dependency 'gollum/asset_helper'
 require_dependency 'gollum/searches_controller_patch'
 require_dependency 'gollum/gollum_init_hook'
+require_dependency 'gollum_helper'
 
 Redmine::Plugin.register :gollum do
   name 'Gollum integration plugin'
@@ -33,6 +34,7 @@ Redmine::Plugin.register :gollum do
   settings :default => {
     'wiki_root' => Rails.root.join('wiki.git'),
     'default_page' => 'Home',
+    'format' => 'markdown',
     'project_prefix' => '/projects/',
     'meetings_prefix' => '/meetings/',
   }, :partial => 'settings/gollum_settings'

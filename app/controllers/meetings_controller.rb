@@ -1,4 +1,7 @@
 class MeetingsController < ApplicationController
+  helper :gollum
+  include GollumHelper
+
   unloadable
 
   before_filter :set_gollum_path
@@ -19,7 +22,7 @@ class MeetingsController < ApplicationController
       redirect_to new_meeting_protocol_path(@project), error: l(:error_description_cannot_be_empty)
     else
       @page = Page.create!(name: date(params[:description][:description]), 
-                           format: :markdown, 
+                           format: format,
                            content: content,
                            commit: commit_for(:create))
       redirect_to meetings_path(@project), notice: l(:notice_meeting_successfully_saved)
@@ -32,11 +35,11 @@ class MeetingsController < ApplicationController
   end
   
   def update
-    if @page
-      @page.update_attributes(content, nil,
-        :markdown, commit_for(:update))
-      redirect_to meetings_path(project_id), notice: l(:notice_meeting_successfully_saved)
-    end
+    @page.update_attributes(content, 
+                            nil,
+                            @page.format, 
+                            commit_for(:update))
+    redirect_to meetings_path(project_id), notice: l(:notice_meeting_successfully_saved)
   end
   
   def destroy
@@ -104,11 +107,7 @@ class MeetingsController < ApplicationController
       when :destroy
         a = "Destroyed meeting protocol"
     end
-    {
-      name: "#{current_user.firstname} #{current_user.lastname}",
-      email: current_user.mail,
-      message: a
-    }
+    commit(a)
   end
   
 end

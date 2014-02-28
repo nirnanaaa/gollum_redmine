@@ -3,6 +3,9 @@
 # support more formats than markdown! replace :markdown with something better.
 #
 class PagesController < ApplicationController
+  helper :gollum
+  include GollumHelper
+
   unloadable
 
   before_filter :find_page, except: [ :index, :folder, :new, :create ]
@@ -26,7 +29,7 @@ class PagesController < ApplicationController
   def create
     Page.reset_folder
     Page.create!(name: join_params,
-      format: :markdown,
+      format: format,
       content: params[:pg][:content],
       commit: current_user_commit)
     redirect_to show_post_path(join_params)
@@ -46,7 +49,7 @@ class PagesController < ApplicationController
   # PUT /wiki/:path
   def update
     Page.reset_folder
-    @page.update_attributes(params[:pg][:content], nil, :markdown, current_user_commit)
+    @page.update_attributes(params[:pg][:content], nil, @page.format, current_user_commit)
     redirect_to show_post_path(@page.url), notice: l(:notice_page_updated)
   end
 
@@ -79,20 +82,12 @@ class PagesController < ApplicationController
   private
 
   def current_user_commit(message=nil)
-    {
-      name: "#{current_user.firstname} #{current_user.lastname}",
-      email: current_user.mail,
-      message: message || params[:pg][:commit]
-    }
+    commit(message||params[:pg][:commit])
   end
 
   def join_params
     fn = params[:pg][:title]
     File.join(params[:folder]||"", params[:pg][:title]).gsub(/^\//, '')
-  end
-
-  def current_user
-    @current_user ||= User.current
   end
 
   def find_page
