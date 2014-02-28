@@ -35,7 +35,7 @@ class MeetingsController < ApplicationController
     if @page
       @page.update_attributes(content, nil,
         :markdown, commit_for(:update))
-      redirect_to meetings_path(project_id), notice: :notice_meeting_successfully_saved
+      redirect_to meetings_path(project_id), notice: l(:notice_meeting_successfully_saved)
     end
   end
   
