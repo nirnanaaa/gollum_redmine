@@ -75,7 +75,8 @@ class PagesController < ApplicationController
   end
 
   def folder
-    @pages = Page.all(base: params[:folder])
+    GollumRails::Setup.wiki_options = { :page_file_dir => '', :base_path => params[:folder]}
+    @pages = Page.all
     render :index
   end
 
