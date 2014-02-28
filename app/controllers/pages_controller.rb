@@ -75,7 +75,7 @@ class PagesController < ApplicationController
   end
 
   def folder
-    @pages = Page.all(folder: params[:folder], base: '')
+    @pages = Page.all(base: params[:folder])
     render :index
   end
 
