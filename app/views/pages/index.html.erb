@@ -3,7 +3,7 @@
 </div>
 <br />
 
-<h3>All Pages in '<%= Page.wiki.base_path %>'</h3>
+<h3>All Pages in '<%= Page.wiki.page_file_dir %>'</h3>
 
 <%- @pages.sort_by{|m| m.title.downcase }.each do |post|%>
   <div class="post-outer">
