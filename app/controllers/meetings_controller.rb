@@ -9,8 +9,8 @@ class MeetingsController < ApplicationController
   before_filter :set_page, only: [ :edit, :update, :destroy, :show ]
   
   def index
-    Page.wiki.clear_cache
-    @pages = Page.all
+    Gpage.wiki.clear_cache
+    @pages = Gpage.all
   end
 
   def show
@@ -21,7 +21,7 @@ class MeetingsController < ApplicationController
       session[:meeting_description_content] = content 
       redirect_to new_meeting_protocol_path(@project), error: l(:error_description_cannot_be_empty)
     else
-      @page = Page.create!(name: date(params[:description][:description]), 
+      @page = Gpage.create!(name: date(params[:description][:description]), 
                            format: format,
                            content: content,
                            commit: commit_for(:create))
@@ -78,7 +78,7 @@ class MeetingsController < ApplicationController
   def set_page
     GollumRails::Setup.wiki_options = { :page_file_dir => nil }
     page = File.join(path_prefix, params[:meeting_id].strip)
-    @page = Page.find(page)
+    @page = Gpage.find(page)
     render_404 unless @page
   end
   

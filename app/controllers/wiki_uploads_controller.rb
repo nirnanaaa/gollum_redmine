@@ -14,14 +14,14 @@ class WikiUploadsController < ApplicationController
     contents = ::File.read(tempfile)
     reponame = filename + '.' + format
 
-    head = Page.wiki.repo.head
+    head = Gpage.wiki.repo.head
 
     options = current_user_commit.merge(parent: head.commit)
     begin
-      committer = Gollum::Committer.new(Page.wiki, options)
+      committer = Gollum::Committer.new(Gpage.wiki, options)
       committer.add_to_index(dir, filename, format, contents)
       committer.after_commit do |committer, sha|
-        Page.wiki.clear_cache
+        Gpage.wiki.clear_cache
         committer.update_working_dir(dir, filename, format)
       end
       committer.commit
@@ -39,7 +39,7 @@ class WikiUploadsController < ApplicationController
   def show
     dir = Setting["plugin_gollum"]["upload_destination"] || "uploads"
     path = File.join(dir, params[:filename])
-    file = Page.wiki.file(path, Page.wiki.ref, true)
+    file = Gpage.wiki.file(path, Gpage.wiki.ref, true)
     if file
       if file.on_disk?
         send_file file.on_disk_path, :disposition => 'inline'

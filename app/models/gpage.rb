@@ -1,4 +1,4 @@
-class Page < GollumRails::Page
+class Gpage < GollumRails::Page
   
   def page_dir
     self.class.wiki.page_file_dir
@@ -37,7 +37,7 @@ class Page < GollumRails::Page
 
 
   def sanitized_filename
-    Page.sanitize_filename(name)
+    Gpage.sanitize_filename(name)
   end
   def self.sanitize_filename(filename)
     fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m

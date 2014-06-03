@@ -31,7 +31,8 @@ RedmineApp::Application.routes.draw do
     put "/wiki/:page/rename" => "pages#renamed", as: :renamed_page
   
     get "/wiki/:page/rename" => "pages#rename", as: :rename_page
-  
+    get '/wiki/:page/print(.:format)' => "pages#print", as: :print_page
+
     delete "/wiki/:page/delete" => "pages#destroy", as: :delete_page
     put "/wiki/:page" => "pages#update", as: :update_page
   

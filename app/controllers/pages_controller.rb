@@ -13,11 +13,26 @@ class PagesController < ApplicationController
   # GET /pages
   def index
     default_page = Setting["plugin_gollum"]["default_page"]
-    @page = Page.find(default_page, Page.wiki.ref, true, false)
+    @page = Gpage.find(default_page, Gpage.wiki.ref, true, false)
     if @page
       render :show
     else
       redirect_to new_page_path(title: default_page)
+    end
+  end
+
+  # GET /print/:page.(:format)
+  def print
+    respond_to do |format|
+      format.html{
+      }
+      format.pdf{
+        require 'tempfile'
+        temp = Tempfile.new(SecureRandom.uuid)
+        
+
+      
+      }
     end
   end
 
@@ -27,8 +42,8 @@ class PagesController < ApplicationController
 
   # POST /pages/(:folder)
   def create
-    Page.reset_folder
-    Page.create!(name: join_params,
+    Gpage.reset_folder
+    Gpage.create!(name: join_params,
       format: format,
       content: params[:pg][:content],
       commit: current_user_commit)
@@ -48,14 +63,14 @@ class PagesController < ApplicationController
 
   # PUT /wiki/:path
   def update
-    Page.reset_folder
+    Gpage.reset_folder
     @page.update_attributes(params[:pg][:content], nil, @page.format, current_user_commit)
     redirect_to show_post_path(@page.url), notice: l(:notice_page_updated)
   end
 
   # DELETE /wiki/:path
   def destroy
-    Page.reset_folder
+    Gpage.reset_folder
     @page.delete(current_user_commit("Removed Page"))
     redirect_to show_folder_path(@page.folder), notice: l(:notice_page_deleted)
   end
@@ -76,7 +91,7 @@ class PagesController < ApplicationController
 
   def folder
     GollumRails::Setup.wiki_options = { :page_file_dir => params[:folder], :base_path => '' }
-    @pages = Page.all
+    @pages = Gpage.all
     render :index
   end
 
@@ -92,7 +107,7 @@ class PagesController < ApplicationController
   end
 
   def find_page
-    @page = Page.find(params[:page], Page.wiki.ref, true)
+    @page = Gpage.find(params[:page], Gpage.wiki.ref, true)
     redirect_to new_page_path(title: params[:page]), notice: l(:notice_page_does_to_exist) unless @page
   end
 end
