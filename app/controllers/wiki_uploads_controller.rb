@@ -3,7 +3,6 @@ class WikiUploadsController < ApplicationController
   def create
     if params[:file]
       fullname = Gollum::Page.cname(params[:file].original_filename)
-
       tempfile = params[:file].tempfile
     end
 
@@ -30,7 +29,6 @@ class WikiUploadsController < ApplicationController
       redirect_to(show_uploads_path(fullname),error: l('label_was_found'))
 
     end
-    
   end
 
   def new
