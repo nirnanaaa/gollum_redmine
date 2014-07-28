@@ -29,9 +29,6 @@ class PagesController < ApplicationController
       format.pdf{
         require 'tempfile'
         temp = Tempfile.new(SecureRandom.uuid)
-        
-
-      
       }
     end
   end
@@ -43,12 +40,12 @@ class PagesController < ApplicationController
   # POST /pages/(:folder)
   def create
     Gpage.reset_folder
-    Gpage.create!(name: join_params,
+    Gpage.create!(name: join_params.force_encoding("UTF-8"),
       format: format,
-      content: params[:pg][:content],
+      content: params[:pg][:content].force_encoding("UTF-8"),
       commit: current_user_commit)
     redirect_to show_post_path(join_params)
-  rescue Gollum::DuplicatePageError => e
+  rescue Gollum::DuplicatePageError
     # TODO: perform update action
     redirect_to show_post_path(join_params), notice: l(:label_page_exists)
   end
