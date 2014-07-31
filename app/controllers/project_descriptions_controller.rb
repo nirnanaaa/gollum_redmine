@@ -43,7 +43,7 @@ class ProjectDescriptionsController < ApplicationController
     if @prj
       current_user = User.current
       @page = Gpage.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
-      @page.update_attributes(params[:pg][:content],nil,:markdown,{ 
+      @page.update_attributes(content: params[:pg][:content],commit: {
         name: "#{current_user.firstname} #{current_user.lastname}",
         email: current_user.mail,
         message: "Created project description for project #{@prj.name}"
