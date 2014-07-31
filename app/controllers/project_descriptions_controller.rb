@@ -3,15 +3,15 @@ class ProjectDescriptionsController < ApplicationController
 
   def new
     @prj = project.first
-    @page = Page.new
+    @page = Gpage.new
   end
-  
+
   def create
     @prj = project.first
     if @prj
       current_user = User.current
       begin
-        @page = Page.create!(name: "#{Setting.plugin_gollum['project_prefix']}#{@prj.name}",
+        @page = Gpage.create!(name: "#{Setting.plugin_gollum['project_prefix']}#{@prj.name}",
         content: params[:pg][:content],
         format: :markdown,
         commit: { name: "#{current_user.firstname} #{current_user.lastname}",
@@ -21,32 +21,28 @@ class ProjectDescriptionsController < ApplicationController
           )
           flash[:notice] = l(:notice_page_saved)
         redirect_to project_path(@prj)
-          
+
       rescue Gollum::DuplicatePageError => e
         flash[:error] = l(:error_duplicate_page)
         redirect_to project_path(@prj)
       end
-        
     end
   end
-  
+
   def edit
     @prj = project.first
     if @prj
-      unless @page = Page.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
+      unless @page = Gpage.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
 
         redirect_to new_project_descriptions_path(@prj)
       end
     end
-    
   end
-  
   def update
     @prj = project.first
     if @prj
       current_user = User.current
-      @page = Page.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
-      
+      @page = Gpage.find("#{Setting.plugin_gollum['project_prefix']}#{@prj.name}")
       @page.update_attributes(params[:pg][:content],nil,:markdown,{ 
         name: "#{current_user.firstname} #{current_user.lastname}",
         email: current_user.mail,
