@@ -31,9 +31,9 @@ module PagesHelper
     File.split(url).first
   end
   
-  def parent_directory_link(title)
+  def parent_directory_link
     #return params[:folder]
     fldr = params[:folder] || path_for_url(params[:page])
-    link_to title, path_for_url("/pages/"+fldr), class: 'icon'
+    url_for path_for_url("/pages/"+fldr)
   end
 end

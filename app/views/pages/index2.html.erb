@@ -1,0 +1,44 @@
+<div>
+  <a href="<%= parent_directory_link%>" class="btn btn-default">Back</a>
+</div>
+<br />
+
+<h3>All Pages in '<%= Gpage.wiki.page_file_dir %>'</h3>
+
+<%- @pages.each do |page| %>
+  <div class="post-outer">
+    <div class="post-inner">
+      <%if page.type == :folder %>
+
+        <div class="inline">
+          <div style="display:inline-block"><%=image_tag 'folder.png',:plugin => 'gollum', height: 16%></div>
+          <div style="display:inline-block"><h5><%=link_to page.name, show_folder_path(page.path) %></h5></div>
+        </div>
+
+      <%else%>
+        <%-f=File.basename(page.path,File.extname(page.path))%>
+        <%-d=File.dirname(page.path)%>
+        <div class="inline">
+          <div style="display:inline-block"><%=image_tag 'file.png',:plugin => 'gollum', height: 16%></div>
+          <div style="display:inline-block">
+            <h5><%=link_to page.name, show_post_path(File.join(d,f)) %></h5>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+<% end%>
+<% html_title l(:title_wiki) %>
+
+<%= content_for :header_tags do %>
+  <%= javascript_include_tag 'bootstrap.min.js', :plugin => 'gollum' %>
+  <%= stylesheet_link_tag 'bootstrap-theme.min.css', :plugin => 'gollum' %>
+  <%= stylesheet_link_tag 'bootstrap.min.css', :plugin => 'gollum'%>
+<%end%>
+<%= content_for :sidebar do%>
+<h3>Wiki</h3>
+<ul>
+  <li><%= link_to 'New'  , new_page_path(folder_s), class: 'icon icon-add'%></li>
+  <li><%= link_to 'Show all pages'  , show_folder_path(folder_s), class: 'icon icon-fav-off'%></li>
+</ul>
+<%end%>

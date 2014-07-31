@@ -88,9 +88,9 @@ class PagesController < ApplicationController
   end
 
   def folder
-    GollumRails::Setup.wiki_options = { :page_file_dir => params[:folder], :base_path => '' }
-    @pages = Gpage.all
-    render :index
+    #GollumRails::Setup.wiki_options = { :page_file_dir => params[:folder], :base_path => '' }
+    @pages = Gpage.tree(folder: params[:folder])
+    render :index2
   end
 
   private
