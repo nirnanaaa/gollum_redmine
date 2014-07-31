@@ -1,34 +1,29 @@
 class WikiUploadsController < ApplicationController
   unloadable
   def create
-    if params[:file]
-      fullname = Gollum::Page.cname(params[:file].original_filename)
-      tempfile = params[:file].tempfile
-    end
-
-    dir = Setting["plugin_gollum"]["upload_destination"] || "uploads"
-    ext = ::File.extname(fullname)
-    format = ext.split('.').last || "txt"
-    filename = ::File.basename(fullname, ext)
-    contents = ::File.read(tempfile)
-    reponame = filename + '.' + format
-
-    head = Gpage.wiki.repo.head
-
-    options = current_user_commit.merge(parent: head.commit)
-    begin
-      committer = Gollum::Committer.new(Gpage.wiki, options)
-      committer.add_to_index(dir, filename, format, contents)
-      committer.after_commit do |committer, sha|
-        Gpage.wiki.clear_cache
-        committer.update_working_dir(dir, filename, format)
+    resp = {files: []}
+    params[:file].each do |file|
+      if file
+        fullname = Gollum::Page.cname(file.original_filename)
+        tempfile = file.tempfile
       end
-      committer.commit
-      redirect_to(show_uploads_path(fullname),notice: l('label_was_uploaded_successfully'))
-    rescue Gollum::DuplicatePageError => e
-      redirect_to(show_uploads_path(fullname),error: l('label_was_found'))
 
+      dir = Setting["plugin_gollum"]["upload_destination"] || "uploads"
+      ext = ::File.extname(fullname)
+      format = ext.split('.').last || "txt"
+      filename = ::File.basename(fullname, ext)
+      contents = ::File.read(tempfile)
+
+      committer = Gollum::Committer.new(Gpage.wiki, current_user_commit)
+      committer.add_to_index(dir,filename,format,contents)
+      committer.commit
+      resp[:files] << {
+        url: show_uploads_url(fullname),
+        name: fullname,
+        size: tempfile.size
+      }
     end
+    render json: resp
   end
 
   def new
@@ -39,11 +34,7 @@ class WikiUploadsController < ApplicationController
     path = File.join(dir, params[:filename])
     file = Gpage.wiki.file(path, Gpage.wiki.ref, true)
     if file
-      if file.on_disk?
-        send_file file.on_disk_path, :disposition => 'inline'
-      else
-        send_data file.raw_data, type: file.mime_type, disposition: 'inline'
-      end
+      send_data file.raw_data, type: 'application/octet-stream', disposition: 'inline'
     else
       rsc = Rails.root.join('plugins', 'gollum', 'assets', 'image_notfound.png')
       begin

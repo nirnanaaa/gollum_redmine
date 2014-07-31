@@ -11,9 +11,70 @@
   <li><%= link_to 'Remove', delete_page_path(@page.url), confirm: l(:label_page_destroy), class: 'icon icon-del', method: :delete%></li>
   <li><%= link_to 'Rename', rename_page_path(@page.url), class: 'icon icon-copy'%></li>
   <li><%= link_to 'New'  , new_page_path(path_for_url(@page.url)), class: 'icon icon-add'%></li>
-  <li><%= link_to 'Upload file', new_upload_path %></li>
+  <li><%= link_to 'Upload file', '', "data-toggle" => "modal", "data-target" => ".modal-upload", "data-backdrop" => "false"  %></li>
   <li><%= link_to l(:label_show_activity)  , page_history_path(@page.url), class: 'icon icon-time'%></li>
   <li><%= link_to l(:label_show_global_activity)  , history_path, class: 'icon icon-time'%></li>
 </ul>
 <%end%>
+<%= content_for :header_tags do %>
+  <%= javascript_include_tag 'bootstrap.min.js', :plugin => 'gollum' %>
+  <%= javascript_include_tag 'jquery.ui.widget.js', :plugin => 'gollum' %>
+  <%= javascript_include_tag 'jquery.iframe-transport.js', :plugin => 'gollum' %>
+  <%= javascript_include_tag 'jquery.fileupload.js', :plugin => 'gollum' %>
+
+  <%= stylesheet_link_tag 'bootstrap-theme.min.css', :plugin => 'gollum' %>
+  <%= stylesheet_link_tag 'bootstrap.min.css', :plugin => 'gollum'%>
+  <%= stylesheet_link_tag 'jquery.fileupload.css', :plugin => 'gollum'%>
+<%end%>
 <% html_title l(:title_wiki) %>
+
+<%content_for :footer do %>
+  <div class="modal modal-upload" tabindex="-1" role="dialog" aria-labelledby="Upload" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Upload a file</h4>
+        </div>
+        <form id="fileform" action="<%= url_for wiki_uploads_path %>" method="POST" entype="multipart/form-data">
+         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+          <div class="modal-body">
+            <input id="fileupload" type="file" name="file[]" multiple/>
+            <div id="files"></div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="save_upload" class="btn btn-primary" disabled>Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <%= javascript_tag do%>
+
+    $(function () {
+        'use strict';
+        var url = '<%=url_for wiki_uploads_path %>';
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            add: function (e,data) {
+              data.formData = $('#fileform').serializeArray();
+              $('#save_upload').prop('disabled', false);
+              $('#save_upload').off('click').on('click', function(){
+                data.submit();
+              })
+            },
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                $('<input type="text" class="form-control"/>').val("!["+file.name+"]("+file.url+")").appendTo('#files');
+                });
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+  <%end%>
+<%end%>
