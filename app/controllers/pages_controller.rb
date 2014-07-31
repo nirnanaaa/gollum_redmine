@@ -82,7 +82,7 @@ class PagesController < ApplicationController
     if params[:pg][:title].empty?
       redirect_to show_post_path(@page.url), error: l(:error_page_title_not_present)
     else
-      @page.rename(params[:pg][:title],current_user_commit)
+      @page.update_attributes(name:params[:pg][:title],commit:current_user_commit)
       redirect_to show_post_path(@page.url), notice: l(:notice_page_renamed_successfully)
     end
   end
