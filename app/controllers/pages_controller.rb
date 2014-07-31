@@ -61,7 +61,8 @@ class PagesController < ApplicationController
   # PUT /wiki/:path
   def update
     Gpage.reset_folder
-    @page.update_attributes(params[:pg][:content], nil, @page.format, current_user_commit)
+    puts current_user_commit
+    @page.update_attributes(content: params[:pg][:content],name: @page.name, format: @page.format, commit: current_user_commit)
     redirect_to show_post_path(@page.url), notice: l(:notice_page_updated)
   end
 

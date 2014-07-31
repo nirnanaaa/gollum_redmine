@@ -10,7 +10,7 @@
             <%= l(:label_content) %>&nbsp;&nbsp;
           <%end%>
           <div id="epiceditor"></div>
-          <textarea id="page-predefined" name="pg[content]" style="display:none"><%= @page.content %></textarea>
+          <textarea id="page-predefined" name="pg[content]" style="display:none"><%= @page.content.force_encoding('UTF-8') %></textarea>
         </p>
         <p>
           <%= label_tag '', for: 'commit_message' do%>
