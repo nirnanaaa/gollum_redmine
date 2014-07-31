@@ -4,7 +4,7 @@
 
 <div class="issues box">
   <h3><%=l(:label_project_wiki)%></h3>
-  <%- page = Page.find("#{Setting.plugin_gollum['project_prefix']}#{@project.name}", Page.wiki.ref, true) %>
+  <%- page = Gpage.find("#{Setting.plugin_gollum['project_prefix']}#{@project.name}", Page.wiki.ref, true) %>
   <%- if page %>
     <%= page.html_data.html_safe %>
     <%= link_to l(:label_project_description_edit), edit_project_descriptions_path(@project) %>
