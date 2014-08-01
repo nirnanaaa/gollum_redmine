@@ -1,33 +1,31 @@
-<div>
-  <a href="<%= parent_directory_link%>" class="btn btn-default">Back</a>
-</div>
-<br />
 
-<h3>All Pages in '<%= Gpage.wiki.page_file_dir %>'</h3>
-
-<%- @pages.each do |page| %>
-  <div class="post-outer">
-    <div class="post-inner">
-      <%if page.type == :folder %>
-
-        <div class="inline">
-          <div style="display:inline-block"><%=image_tag 'folder.png',:plugin => 'gollum', height: 16%></div>
-          <div style="display:inline-block"><h5><%=link_to page.name, show_folder_path(page.path) %></h5></div>
-        </div>
-
-      <%else%>
-        <%-f=File.basename(page.path,File.extname(page.path))%>
-        <%-d=File.dirname(page.path)%>
-        <div class="inline">
-          <div style="display:inline-block"><%=image_tag 'file.png',:plugin => 'gollum', height: 16%></div>
-          <div style="display:inline-block">
-            <h5><%=link_to page.name, show_post_path(File.join(d,f)) %></h5>
-          </div>
-        </div>
+<ul class="breadcrumb">
+  <%-x=params[:folder].split("/")%>
+  <%x.each_with_index do |w,index|%>
+    <%if index == x.length-1 %>
+      <li class="active"><%=w.camelize%></li>
+    <%else%>
+      <li><%=link_to w.camelize,show_folder_path(x[0..index].join("/"))%></li>
+    <%end%>
+  <%end%>
+</ul>
+<div class="list-group" style="margin: 10px;">
+  <%- @pages.each do |page| %>
+    <%if page.type == :folder %>
+      <%=link_to show_folder_path(page.path),class: 'list-group-item' do%>
+        <i><%=image_tag 'folder.png', :plugin => 'gollum',width: 16 %></i>
+        <%=page.name%>
       <%end%>
-    </div>
-  </div>
-<% end%>
+    <%else%>
+      <%-f=File.basename(page.path,File.extname(page.path))%>
+      <%-d=File.dirname(page.path)%>
+      <%=link_to show_post_path(File.join(d,f)),class: 'list-group-item' do %>
+        <i><%=image_tag 'file.png', :plugin => 'gollum',width: 16 %></i>
+        <%=page.name%>
+      <%end%>
+    <%end%>
+  <% end%>
+</div>
 <% html_title l(:title_wiki) %>
 
 <%= content_for :header_tags do %>
@@ -37,8 +35,10 @@
 <%end%>
 <%= content_for :sidebar do%>
 <h3>Wiki</h3>
-<ul>
-  <li><%= link_to 'New'  , new_page_path(folder_s), class: 'icon icon-add'%></li>
-  <li><%= link_to 'Show all pages'  , show_folder_path(folder_s), class: 'icon icon-fav-off'%></li>
-</ul>
+<div class="btn-group-vertical" style="width: 90%;">
+  <%= link_to new_page_path(folder_s), class: 'btn btn-default' do %>
+    <i class="icon icon-add"></i>
+    New
+  <%end%>
+</div>
 <%end%>

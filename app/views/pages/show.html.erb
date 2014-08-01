@@ -6,7 +6,7 @@
 
 <%= content_for :sidebar do%>
 <h3>Page</h3>
-<div class="btn-group-vertical" style="width: 100%;">
+<div class="btn-group-vertical" style="width: 90%;">
   <%= link_to edit_page_path(@page.url), class: 'btn btn-default' do %>
     <i class="icon icon-edit"></i>
     Edit
@@ -96,6 +96,7 @@
   </div>
       </div>
     </div>
+    <%#= render partial: 'pages/edit',locals: {page: @page} %>
 
 
   <%= javascript_tag do%>
