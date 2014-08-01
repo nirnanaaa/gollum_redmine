@@ -43,11 +43,11 @@ class Gollum::Filter::Highlight < Gollum::Filter
 
     highlighted = []
     blocks.each do |lang, code|
-      puts lang
+      c_code = GitHub::Markup.render(@markup.name, code)
       if lang
-        highlighted << "<div class=\"alert alert-#{lang}\">#{code}</div>"
+        highlighted << "<div class=\"alert alert-#{lang}\">#{c_code}</div>"
       else
-        highlighted << "<div class=\"alert alert-danger\">#{code}</div>"
+        highlighted << "<div class=\"alert alert-danger\">#{c_code}</div>"
       end
     end
 
