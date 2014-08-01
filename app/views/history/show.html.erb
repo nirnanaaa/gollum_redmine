@@ -18,17 +18,17 @@
   <% @history.each do |h|%>
       <tr class="open">
         <td width="130">
-          <%= h.committed_date.strftime("%d.%m.%Y %H:%M") %>
+          <%= h[:author][:time].strftime("%d.%m.%Y %H:%M") %>
 
         </td>
         <td style="text-align:left">
-          <%= h.message %>
+          <%= h[:subject] %>
         </td>
         <td width="130" style="text-align:left">
-          <%= h.author.name%>
+          <%= h[:author][:name]%>
         </td>
         <td style="text-align:left">
-          <%= h.author.email%>
+          <%= h[:author][:email]%>
 
         </td>
       <tr>
