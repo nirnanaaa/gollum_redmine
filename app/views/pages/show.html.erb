@@ -6,15 +6,34 @@
 
 <%= content_for :sidebar do%>
 <h3>Page</h3>
-<ul>
-  <li><%= link_to 'Edit'  , edit_page_path(@page.url), class: 'icon icon-edit'%></li>
-  <li><%= link_to 'Remove', delete_page_path(@page.url), confirm: l(:label_page_destroy), class: 'icon icon-del', method: :delete%></li>
-  <li><%= link_to 'Rename', rename_page_path(@page.url), class: 'icon icon-copy'%></li>
-  <li><%= link_to 'New'  , new_page_path(path_for_url(@page.url)), class: 'icon icon-add'%></li>
-  <li><%= link_to 'Upload file', '', "data-toggle" => "modal", "data-target" => ".modal-upload", "data-backdrop" => "false"  %></li>
-  <li><%= link_to l(:label_show_activity)  , page_history_path(@page.url), class: 'icon icon-time'%></li>
-  <li><%= link_to l(:label_show_global_activity)  , history_path, class: 'icon icon-time'%></li>
-</ul>
+<div class="btn-group-vertical" style="width: 100%;">
+  <%= link_to edit_page_path(@page.url), class: 'btn btn-default' do %>
+    <i class="icon icon-edit"></i>
+    Edit
+  <%end%>
+  <%= link_to delete_page_path(@page.url), confirm: l(:label_page_destroy), method: :delete,class: 'btn btn-default' do %>
+    <i class="icon icon-del"></i>
+    Remove
+  <%end%>
+  <%= link_to '#', :"data-toggle" => "modal", :"data-target" => ".modal-rename",:"data-backdrop" => "false",:class => 'btn btn-default' do %>
+    <i class="icon icon-copy"></i>
+    Rename
+  <%end%>
+  <%= link_to new_page_path(path_for_url(@page.url)), class: 'btn btn-default' do %>
+    <i class="icon icon-add"></i>
+    New
+  <%end%>
+  <%= link_to '#', "data-toggle" => "modal", "data-target" => ".modal-upload", "data-backdrop" => "false",:class => 'btn btn-default' do %>
+    Upload a file
+  <%end%>
+
+  <%= link_to page_history_path(@page.url),:class => 'btn btn-default' do %>
+    Page History
+  <%end%>
+  <%= link_to history_path,:class => 'btn btn-default' do %>
+    Global History
+  <%end%>
+</div>
 <%end%>
 <%= content_for :header_tags do %>
   <%= javascript_include_tag 'bootstrap.min.js', :plugin => 'gollum' %>
@@ -55,12 +74,51 @@
   </div>
       </div>
     </div>
+ <div class="modal modal-rename" tabindex="-1" role="dialog" aria-labelledby="Rename" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Rename page <%=@page.title%></h4>
+        </div>
+        <form id="renameform" action="<%= url_for renamed_page_path(@page.url) %>" method="POST" entype="multipart/form-data">
+         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+         <input type="hidden" name="_method" value="put" />
+
+          <div class="modal-body">
+            <input name="pg[title]" placeholder="New name" id="renamefield"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="submit_rename" class="btn btn-primary" disabled>Rename</button>
+          </div>
+        </form>
+  </div>
+      </div>
+    </div>
+
 
   <%= javascript_tag do%>
 
     $(function () {
         'use strict';
         var url = '<%=url_for wiki_uploads_path %>';
+        $('#renameform').submit(function(e){
+          if($('#submit_rename').prop('disabled') === false){
+            this.submit();
+            return true;
+          }else{
+            e.preventDefault();
+            return false;
+          }
+        });
+        $('#renamefield').keyup(function(e){
+          if($(e.currentTarget).val().length >= 1){
+            $('#submit_rename').prop('disabled', false);
+          }else{
+            $('#submit_rename').prop('disabled', true);
+          }
+        });
         $('#fileupload').fileupload({
             url: url,
             dataType: 'json',

@@ -4,6 +4,8 @@ require_dependency 'gollum/asset_helper'
 require_dependency 'gollum/searches_controller_patch'
 require_dependency 'gollum/gollum_init_hook'
 require_dependency 'gollum_helper'
+require File.expand_path('../lib/gollum_rails/store',__FILE__)
+require 'gollum-lib/filter/highlight'
 
 Redmine::Plugin.register :gollum do
   name 'Gollum integration plugin'
@@ -25,6 +27,7 @@ Redmine::Plugin.register :gollum do
 
   menu :project_menu, :meetings, {:controller => 'meetings', :action => 'index'}, 
       :caption => :label_project_menu_meetings, :after => :activity, :param => :project_id
+  permission :view_wiki, {:pages => [:index]}, :public => true
 
   settings :default => {
     'wiki_root' => Rails.root.join('wiki.git'),

@@ -6,7 +6,7 @@ module Gollum
         GollumRails::Setup.build do |conf|
           conf.repository = ENV['GOLLUM_WIKI_LOCATION'] || Setting.plugin_gollum["repository_location"] 
         end
-      rescue TypeError => e
+      rescue TypeError
         tries -= 1
         if tries > 0
           uuid = SecureRandom.uuid

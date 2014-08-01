@@ -9,6 +9,7 @@ class PagesController < ApplicationController
   unloadable
 
   before_filter :find_page, except: [ :index, :folder, :new, :create ]
+  #before_filter :authorize, only: [:index]
 
   # GET /pages
   def index
@@ -82,13 +83,16 @@ class PagesController < ApplicationController
     if params[:pg][:title].empty?
       redirect_to show_post_path(@page.url), error: l(:error_page_title_not_present)
     else
-      @page.update_attributes(name:params[:pg][:title],commit:current_user_commit)
-      redirect_to show_post_path(@page.url), notice: l(:notice_page_renamed_successfully)
+      render text: params[:pg][:title]
+
+      #@page.update_attributes(name:params[:pg][:title],commit:current_user_commit)
+      #redirect_to show_post_path(@page.url), notice: l(:notice_page_renamed_successfully)
     end
   end
 
   def folder
     #GollumRails::Setup.wiki_options = { :page_file_dir => params[:folder], :base_path => '' }
+    #
     @pages = Gpage.tree(folder: params[:folder])
     render :index2
   end
@@ -105,6 +109,7 @@ class PagesController < ApplicationController
   end
 
   def find_page
+    puts GollumRails::Page.wiki.filter_chain.inspect
     @page = Gpage.find(params[:page], Gpage.wiki.ref, true)
     redirect_to new_page_path(title: params[:page]), notice: l(:notice_page_does_to_exist) unless @page
   end
