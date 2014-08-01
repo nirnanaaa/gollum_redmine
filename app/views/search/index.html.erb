@@ -32,13 +32,13 @@
 
       <% @results.each do |e| %>
         <% if e.kind_of? Hash%>
-          <dt class="wiki_page">
-            <%= content_tag('span', h(e[:name]), :class => 'wiki')%> 
+          <dt class="wiki_page issue">
+            <%= content_tag('span', "GollumWiki", :class => 'project')%> 
             <%= link_to highlight_tokens(truncate(File.split(e[:name]).last, :length => 255), @tokens), show_post_path(e[:name]) %>
           </dt>
           <dd>
             <span class="description">
-              <%= l(:label_wiki_occurrences)%>: <%=e[:count]%>
+              <%= e[:oid]%>
             </span>
           </dd>
         <% else%>
