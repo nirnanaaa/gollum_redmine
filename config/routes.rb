@@ -20,7 +20,7 @@ RedmineApp::Application.routes.draw do
   get 'uploads/:filename' => 'wiki_uploads#show', as: :show_uploads, :constraints => { :filename => /.*/ }
 
   constraints(:folder => /.*/, :page => /.*/ ) do
-    get '/pages' => 'pages#index'
+    get '/pages' => 'pages#index', as: :pages_root
     get '/pages/history' => "history#global", as: :history
     get '/pages(/:folder)/new' => "pages#new", as: :new_page
     post '/pages(/:folder)' => "pages#create", as: :create_page

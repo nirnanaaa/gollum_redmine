@@ -1,23 +1,24 @@
+<%= render partial: 'pages/breadcrumbs', locals: {first_is_root: true,path: 'home/history'}%>
 
-<h3>Version history</h3>
 <% if @history.empty? %>
   <p class="nodata"><%= l(:label_no_data) %></p>
 
 <% else %>
 <div class="autoscroll">
-<table class="list issues">
+<table class="table table-hover">
   <thead>
     <tr>
+      <th>#</th>
       <th><%= l(:label_date)%></th>
       <th style="text-align:left"><%= l(:label_msg)%></th>
       <th style="text-align:left"><%= l(:label_name)%></th>
-      <th style="text-align:left"><%= l(:label_email)%></th>
     </tr>
   </thead>
   <tbody>
-  <% @history.each do |h|%>
+  <% @history.each_with_index do |h,index|%>
       <tr class="open">
-        <td width="130">
+        <td width="20"><%=index%></td>
+        <td width="200">
           <%= h[:author][:time].strftime("%d.%m.%Y %H:%M") %>
 
         </td>
@@ -27,10 +28,6 @@
         <td width="130" style="text-align:left">
           <%= h[:author][:name]%>
         </td>
-        <td style="text-align:left">
-          <%= h[:author][:email]%>
-
-        </td>
       <tr>
   <% end %>
   </tbody>
@@ -39,6 +36,11 @@
 <% end%>
 <% html_title l(:title_wiki) %>
 
+<%= content_for :header_tags do %>
+  <%= javascript_include_tag 'bootstrap.min.js', :plugin => 'gollum' %>
+  <%= stylesheet_link_tag 'bootstrap-theme.min.css', :plugin => 'gollum' %>
+  <%= stylesheet_link_tag 'bootstrap.min.css', :plugin => 'gollum'%>
+<%end%>
 <%= content_for :sidebar do%>
 <h3>Wiki</h3>
 

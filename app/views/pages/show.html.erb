@@ -1,3 +1,5 @@
+<%= render partial: 'pages/breadcrumbs', locals: {first_is_root: false,path: @page.url,css_class: 'hidden-print'}%>
+
 <aside class="wiki-page">
   <%= @page.render_html_with_redmine_tags %>
 </aside>

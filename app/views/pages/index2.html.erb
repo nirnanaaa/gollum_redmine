@@ -1,14 +1,6 @@
 
-<ul class="breadcrumb">
-  <%-x=params[:folder].split("/")%>
-  <%x.each_with_index do |w,index|%>
-    <%if index == x.length-1 %>
-      <li class="active"><%=w.camelize%></li>
-    <%else%>
-      <li><%=link_to w.camelize,show_folder_path(x[0..index].join("/"))%></li>
-    <%end%>
-  <%end%>
-</ul>
+<%= render partial: 'pages/breadcrumbs', locals: {first_is_root: false,path: params[:folder]}%>
+
 <div class="list-group" style="margin: 10px;">
   <%- @pages.each do |page| %>
     <%if page.type == :folder %>

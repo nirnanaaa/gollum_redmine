@@ -15,8 +15,6 @@ Redmine::Plugin.register :gollum do
   url 'http://example.com/path/to/plugin'
   author_url 'http://floriankasper.org'
   menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
-  permission :polls, { :polls => [:index, :vote] }, :public => true
-  menu :project_menu, :polls, { :controller => 'pages', :action => 'index' }, :caption => 'Polls', :after => :activity, :param => :project_id
 
   project_module :meetings do
     permission :view_meetings, {:meetings => [:index, :show] }
