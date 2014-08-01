@@ -82,8 +82,8 @@ module Gollum
               end
             end
             GollumRails::Setup.wiki_options = { :page_file_dir => nil }
-            
-            pages = ::Page.search(@question)
+
+            pages = ::Gpage.search(@question)
             @results += pages
             @results_by_type["wiki"] = pages.length
             #@results_by_type["wiki"] += pages
