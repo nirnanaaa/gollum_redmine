@@ -1,4 +1,4 @@
-<div id="breadcrmb" class="<%=css_class%>">
+<div id="breadcrmb" <% if css_class%>class="<%=css_class%>"<%end%>>
   <ul class="breadcrumb <%=css_class%>">
     <%-x=path.split("/")%>
     <%x.each_with_index do |w,index|%>
