@@ -13,6 +13,7 @@ class PagesController < ApplicationController
 
   # GET /pages
   def index
+    Gpage.reset_folder
     default_page = Setting["plugin_gollum"]["default_page"]
     @page = Gpage.find(default_page, Gpage.wiki.ref, true, false)
     if @page
