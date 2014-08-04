@@ -1,5 +1,5 @@
-<div id="breadcrmb" <% if css_class%>class="<%=css_class%>"<%end%>>
-  <ul class="breadcrumb <% if css_class %><%=css_class%> <%end%>">
+<div id="breadcrmb">
+  <ul class="breadcrumb">
     <%-x=path.split("/")%>
     <%x.each_with_index do |w,index|%>
       <%if first_is_root && index == 0 %>
