@@ -53,6 +53,7 @@ class PagesController < ApplicationController
 
   # GET /wiki/:path
   def show
+    Gpage.reset_folder
   end
 
   # GET /wiki/:path/edit
@@ -62,7 +63,6 @@ class PagesController < ApplicationController
   # PUT /wiki/:path
   def update
     Gpage.reset_folder
-    puts current_user_commit
     @page.update_attributes(content: params[:pg][:content],name: @page.name, format: @page.format, commit: current_user_commit)
     redirect_to show_post_path(@page.url), notice: l(:notice_page_updated)
   end
@@ -109,7 +109,6 @@ class PagesController < ApplicationController
   end
 
   def find_page
-    puts GollumRails::Page.wiki.filter_chain.inspect
     @page = Gpage.find(params[:page], Gpage.wiki.ref, true)
     redirect_to new_page_path(title: params[:page]), notice: l(:notice_page_does_to_exist) unless @page
   end
