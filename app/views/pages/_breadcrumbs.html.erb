@@ -1,0 +1,17 @@
+<div id="breadcrmb" class="<%=css_class%>">
+  <ul class="breadcrumb <%=css_class%>">
+    <%-x=path.split("/")%>
+    <%x.each_with_index do |w,index|%>
+      <%if first_is_root && index == 0 %>
+        <li><%=link_to w.camelize,pages_root_path%></li>
+      <%else%>
+        <%if index == x.length-1 %>
+          <li class="active"><%=w.camelize%></li>
+        <%else%>
+          <li><%=link_to w.camelize,show_folder_path(x[0..index].join("/"))%></li>
+        <%end%>
+      <%end%>
+    <%end%>
+  </ul>
+
+</div>
