@@ -15,7 +15,13 @@ Redmine::Plugin.register :gollum do
   version '0.9.0'
   url 'http://example.com/path/to/plugin'
   author_url 'http://floriankasper.org'
-  menu :top_menu, :wiki, { :controller => 'pages', :action => 'index' }, :caption => :label_menu_gollum
+  menu :top_menu, 
+    :wiki, 
+    { :controller => 'pages', :action => 'index' }, 
+    :caption => :label_menu_gollum,
+    :if => Proc.new {
+      GpagePolicy.new(User.current, :gpage).index?
+    }
 
   project_module :meetings do
     permission :view_meetings, {:meetings => [:index, :show] }

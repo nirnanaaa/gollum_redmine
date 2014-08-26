@@ -6,6 +6,7 @@ en:
   label_update_page_auth: "Update page"
   label_destroy_page_auth: "Delete page"
   label_index_for_all_page_auth: "Everyone can view the Index page"
+  label_repositories_settings: "Repository"
   label_format: "Default format"
   label_menu_gollum: "Wiki"
   label_project_wiki: "Project description"

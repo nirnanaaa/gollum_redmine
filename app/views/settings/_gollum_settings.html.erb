@@ -1,23 +1,23 @@
-
+<fieldset>
 
 <fieldset>
-<legend><%= l(:label_gollum_settings) %></legend>
-
-<p>
-  <label><%= l(:label_repository_location) %></label><%= text_field_tag 'settings[repository_location]', @settings['repository_location'] %>
-</p>
-<p>
-  <label><%= l(:label_default_page) %></label><%= text_field_tag 'settings[default_page]', @settings['default_page'] %>  
-</p>
-<p>
-  <label><%= l(:label_project_prefix) %></label><%= text_field_tag 'settings[project_prefix]', @settings['project_prefix'] %>  
-</p>
-<p>
-  <label><%= l(:label_meetings_prefix) %></label><%= text_field_tag 'settings[meetings_prefix]', @settings['meetings_prefix'] %>  
-</p>
-<p>
-<label><%= l(:label_format) %></label> <%= select_tag('settings[format]', options_for_select(Gollum::Markup.formats,@settings['format'])) %>
-</p>
+  <legend><%= l(:label_repositories_settings) %> </legend>
+  <p>
+    <label><%= l(:label_repository_location) %></label><%= text_field_tag 'settings[repository_location]', @settings['repository_location'] %>
+  </p>
+  <p>
+    <label><%= l(:label_default_page) %></label><%= text_field_tag 'settings[default_page]', @settings['default_page'] %>  
+  </p>
+  <p>
+    <label><%= l(:label_project_prefix) %></label><%= text_field_tag 'settings[project_prefix]', @settings['project_prefix'] %>  
+  </p>
+  <p>
+    <label><%= l(:label_meetings_prefix) %></label><%= text_field_tag 'settings[meetings_prefix]', @settings['meetings_prefix'] %>  
+  </p>
+  <p>
+  <label><%= l(:label_format) %></label> <%= select_tag('settings[format]', options_for_select(Gollum::Markup.formats,@settings['format'])) %>
+  </p>
+</fieldset>
 <br />
 <fieldset>
   <legend><%= l(:label_permissions_settings) %> </legend>
