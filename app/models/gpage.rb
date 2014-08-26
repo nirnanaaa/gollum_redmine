@@ -49,7 +49,6 @@ class Gpage < GollumRails::Page
         "##{m}"
       end
     end
-    data.gsub!(/^([ \t]*)([(\-){3}|<hr( \/)?>]+) ?([^\r\n]+)?\r?\n(.+?)\r?\n\1([(\-){3}|<hr( \/)?>]+)[ \t\r]*$/m, '')
     data.html_safe
   end
 
