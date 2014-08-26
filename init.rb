@@ -1,4 +1,5 @@
 require 'gollum_rails'
+require 'pundit'
 require_dependency 'gollum/my_plugin_hook'
 require_dependency 'gollum/asset_helper'
 require_dependency 'gollum/searches_controller_patch'

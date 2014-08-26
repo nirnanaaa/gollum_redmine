@@ -19,6 +19,26 @@
 <label><%= l(:label_format) %></label> <%= select_tag('settings[format]', options_for_select(Gollum::Markup.formats,@settings['format'])) %>
 </p>
 <br />
+<fieldset>
+  <legend><%= l(:label_permissions_settings) %> </legend>
+  <p>
+  <label><%= l(:label_authorization) %></label> <%= select_tag('settings[create_perm]', options_for_select(Group.all.collect{|g| [g.name, g.id]},@settings['create_perm'])) %>
+  </p>
+
+  <p>
+    <label><%= l(:label_show_page_auth) %></label> <%= select_tag('settings[show_perm]', options_for_select(Group.all.collect{|g| [g.name, g.id]},@settings['show_perm'])) %>
+  </p>
+  <p>
+  <label><%= l(:label_update_page_auth) %></label> <%= select_tag('settings[update_perm]', options_for_select(Group.all.collect{|g| [g.name, g.id]},@settings['update_perm'])) %>
+  </p>
+  <p>
+  <label><%= l(:label_destroy_page_auth) %></label> <%= select_tag('settings[destroy_perm]', options_for_select(Group.all.collect{|g| [g.name, g.id]},@settings['destroy_perm'])) %>
+  </p>
+  <p>
+  <label><%= l(:label_index_for_all_page_auth) %></label><%=check_box_tag('settings[index_by_all]', nil,@settings["index_by_all"]) %>
+  </p>
+</fieldset>
+<br />
 <b><%= l(:label_need_restart)%></b>
 
 </fieldset>

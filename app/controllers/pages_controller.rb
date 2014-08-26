@@ -5,8 +5,11 @@
 class PagesController < ApplicationController
   helper :gollum
   include GollumHelper
+  include Pundit
 
   unloadable
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_filter :find_page, except: [ :index, :folder, :new, :create ]
   #before_filter :authorize, only: [:index]
@@ -14,6 +17,7 @@ class PagesController < ApplicationController
   # GET /pages
   def index
     Gpage.reset_folder
+    authorize :gpage, :index?
     default_page = Setting["plugin_gollum"]["default_page"]
     @page = Gpage.find(default_page, Gpage.wiki.ref, true, false)
     if @page
@@ -42,9 +46,10 @@ class PagesController < ApplicationController
   # POST /pages/(:folder)
   def create
     Gpage.reset_folder
-    Gpage.create!(name: join_params.force_encoding("UTF-8"),
+    authorize :gpage, :create?
+    Gpage.create!(name: join_params,
       format: format,
-      content: params[:pg][:content].force_encoding("UTF-8"),
+      content: params[:pg][:content],
       commit: current_user_commit)
     redirect_to show_post_path(join_params)
   rescue Gollum::DuplicatePageError
@@ -54,16 +59,19 @@ class PagesController < ApplicationController
 
   # GET /wiki/:path
   def show
+    authorize @page, :show?
     Gpage.reset_folder
   end
 
   # GET /wiki/:path/edit
   def edit
+    authorize @page, :edit?
   end
 
   # PUT /wiki/:path
   def update
     Gpage.reset_folder
+    authorize @page, :update?
     @page.update_attributes(content: params[:pg][:content],name: @page.name, format: @page.format, commit: current_user_commit)
     redirect_to show_post_path(@page.url), notice: l(:notice_page_updated)
   end
@@ -71,6 +79,7 @@ class PagesController < ApplicationController
   # DELETE /wiki/:path
   def destroy
     Gpage.reset_folder
+    authorize @page, :destroy?
     @page.delete(current_user_commit("Removed Page"))
     redirect_to show_folder_path(@page.folder), notice: l(:notice_page_deleted)
   end
@@ -94,6 +103,7 @@ class PagesController < ApplicationController
   def folder
     #GollumRails::Setup.wiki_options = { :page_file_dir => params[:folder], :base_path => '' }
     #
+    authorize :gpage, :tree?
     @pages = Gpage.tree(folder: params[:folder])
     render :index2
   end
@@ -107,6 +117,10 @@ class PagesController < ApplicationController
   def join_params
     fn = params[:pg][:title]
     File.join(params[:folder]||"", params[:pg][:title]).gsub(/^\//, '')
+  end
+  def user_not_authorized
+    flash[:error] = "Your are not authorized to perform this action"
+    redirect_to(request.referrer || root_path)
   end
 
   def find_page

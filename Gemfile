@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'gollum_rails', github: 'Corscience/gollum_rails'
 gem 'github-markdown'
+gem 'kramdown'
+gem 'pundit'
 #gem 'gimli'
 
 # To install additional languages please see https://github.com/gollum/gollum-lib/blob/master/README.md#installation

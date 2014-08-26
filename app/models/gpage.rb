@@ -1,5 +1,21 @@
 class Gpage < GollumRails::Page
   
+  
+  def update_attributes(*)
+    
+    
+    super
+  end
+
+
+  def authorized_users
+    if meta && meta["authorized"]
+      meta["authorized"].split(",")
+    else
+      []
+    end
+  end
+
   def page_dir
     self.class.wiki.page_file_dir
   end
@@ -24,7 +40,7 @@ class Gpage < GollumRails::Page
   end
   
   def render_html_with_redmine_tags
-    html_data.gsub(/((?!("|>)).)#(\d+|\d\s)\b/) do |m|
+    data = html_data.gsub(/((?!("|>)).)#(\d+|\d\s)\b/) do |m|
       m.strip!
       m = m[1..-1]
       if Issue.exists?(id: m.to_i)
@@ -32,7 +48,9 @@ class Gpage < GollumRails::Page
       else
         "##{m}"
       end
-    end.html_safe
+    end
+    data.gsub!(/^([ \t]*)([(\-){3}|<hr( \/)?>]+) ?([^\r\n]+)?\r?\n(.+?)\r?\n\1([(\-){3}|<hr( \/)?>]+)[ \t\r]*$/m, '')
+    data.html_safe
   end
 
 

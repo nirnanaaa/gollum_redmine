@@ -1,5 +1,12 @@
 # English strings go here for Rails i18n
 en:
+  label_authorization: "Create page"
+  label_permissions_settings: "Permissions"
+  label_show_page_auth: "Show page"
+  label_update_page_auth: "Update page"
+  label_destroy_page_auth: "Delete page"
+  label_index_for_all_page_auth: "Everyone can view the Index page"
+  label_format: "Default format"
   label_menu_gollum: "Wiki"
   label_project_wiki: "Project description"
   label_new_project_descriptions: "Create project description"
